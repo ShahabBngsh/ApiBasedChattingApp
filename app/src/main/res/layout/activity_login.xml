@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:background="#2e2e2e">
+
+    <TextView
+        android:id="@+id/login_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/login_detail"
+        android:layout_alignStart="@+id/login_detail"
+        android:layout_marginBottom="10dp"
+        android:text="Welcome back!"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/login_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/login_email"
+        android:layout_above="@+id/login_email"
+        android:layout_marginBottom="40dp"
+        android:text="Please login to your account."
+        android:textColor="@color/gray"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/login_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_centerInParent="true"
+        android:inputType="textEmailAddress"
+        android:backgroundTint="@color/gray"
+        android:hint="Email Address"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray"/>
+    <EditText
+        android:id="@+id/login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/login_email"
+        android:inputType="textWebPassword"
+        android:backgroundTint="@color/gray"
+        android:hint="Password"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray"/>
+
+    <Button
+        android:id="@+id/login_loginbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="20dp"
+        android:text="login"
+        android:textSize="18sp"
+        android:layout_below="@+id/login_password"/>
+    <TextView
+        android:id="@+id/login_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_loginbtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Register Now"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:clickable="true"/>
+
+
+
+
+</RelativeLayout>
