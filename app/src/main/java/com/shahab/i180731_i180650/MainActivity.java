@@ -4,23 +4,34 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.widget.TextView;
 import android.view.View;
 import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
+
+    public int counter = 0;
     LinearLayout btn_ll_main;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn_ll_main = findViewById(R.id.main);
-        btn_ll_main.setOnClickListener(view -> launchActivityLogin());
-    }
-    // switch screen to the login screen
-    private void launchActivityLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        new CountDownTimer(1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                counter++;
+            }
+
+            @Override
+            public void onFinish() {
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+            }
+        }.start();
+    
     }
 
 }
