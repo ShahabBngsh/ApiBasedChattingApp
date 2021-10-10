@@ -8,20 +8,21 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity {
-    Button btn_login;
-    TextView txtView_signup;
+public class SignupActivity extends AppCompatActivity {
+    Button btn_signup;
+    TextView txtView_login;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signup);
 
-        txtView_signup = findViewById(R.id.login_register);
-        txtView_signup.setOnClickListener(view -> launchSignupActivity());
+        txtView_login = findViewById(R.id.signup_login);
+        txtView_login.setOnClickListener(view -> launchLoginActivity());
     }
 
-    private void launchSignupActivity() {
-        Intent intent = new Intent(this, SignupActivity.class);
+    private void launchLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 }
