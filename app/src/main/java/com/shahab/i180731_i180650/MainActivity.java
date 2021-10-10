@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 public class MainActivity extends AppCompatActivity {
 
     public int counter = 0;
-    LinearLayout btn_ll_main;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         }.start();
