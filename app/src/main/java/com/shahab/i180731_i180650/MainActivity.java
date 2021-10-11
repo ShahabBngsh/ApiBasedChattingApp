@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
 //                NOTE:ADD login page on "LoginPageActivity.class"
-                Intent StartIntent = new Intent(MainActivity.this, CallingActivity.class);
+                Intent StartIntent = new Intent(MainActivity.this, MessagesPageActivity.class);
                 startActivity(StartIntent);
               
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
