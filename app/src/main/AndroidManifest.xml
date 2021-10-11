@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.I180731_i180650">
         <activity
-            android:name=".NavigationActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/title_activity_navigation" />
         <activity
@@ -20,7 +20,7 @@
             android:name=".CallingActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".NavigationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

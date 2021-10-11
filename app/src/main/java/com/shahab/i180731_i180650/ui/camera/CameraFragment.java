@@ -1,4 +1,4 @@
-package com.shahab.i180731_i180650.ui.dashboard;
+package com.shahab.i180731_i180650.ui.camera;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,20 +12,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.shahab.i180731_i180650.R;
-import com.shahab.i180731_i180650.databinding.FragmentDashboardBinding;
+import com.shahab.i180731_i180650.databinding.FragmentCameraBinding;
 
-public class DashboardFragment extends Fragment {
+public class CameraFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
-    private FragmentDashboardBinding binding;
+    private CameraViewModel dashboardViewModel;
+    private FragmentCameraBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+                new ViewModelProvider(this).get(CameraViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentCameraBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textDashboard;
