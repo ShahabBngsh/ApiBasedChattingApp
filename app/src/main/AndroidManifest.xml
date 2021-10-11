@@ -10,6 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.I180731_i180650">
         <activity
+            android:name=".NavigationActivity"
+            android:exported="true"
+            android:label="@string/title_activity_navigation" />
+        <activity
+            android:name=".MessagesPageActivity"
+            android:exported="true" />
+        <activity
             android:name=".CallingActivity"
             android:exported="true" />
         <activity
@@ -21,8 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".SignupActivity"/>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignupActivity" />
     </application>
 
 </manifest>
