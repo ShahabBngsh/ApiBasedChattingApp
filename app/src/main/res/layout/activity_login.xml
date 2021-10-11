@@ -59,11 +59,11 @@
         android:id="@+id/login_loginbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/login_password"
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="20dp"
         android:text="login"
-        android:textSize="18sp"
-        android:layout_below="@+id/login_password"/>
+        android:textSize="18sp" />
     <TextView
         android:id="@+id/login_register"
         android:layout_width="wrap_content"
