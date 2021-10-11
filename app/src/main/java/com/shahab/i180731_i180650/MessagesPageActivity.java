@@ -17,7 +17,7 @@ public class MessagesPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messages_page);
-        rv=findViewById(R.id.rv);
+        rv=findViewById(R.id.msgpage_rv);
         ls=new ArrayList<>();
         ls.add(new MyModel("Saad","i201550"));
         ls.add(new MyModel("Saad","i201550"));
