@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:textSize="20dp"
-            android:hint="message"/>
+            android:hint="Person Name"/>
         <TextView
             android:id="@+id/call_status"
             android:layout_width="wrap_content"
