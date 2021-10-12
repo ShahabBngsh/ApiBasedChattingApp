@@ -8,18 +8,20 @@
     >
 
     <ImageView
-        android:id="@+id/chat_potrait"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
+        android:id="@+id/call_potrait"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="18dp"
+        />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/chat_rounded"
-        android:backgroundTint="@color/purple_500"
         android:layout_marginLeft="60dp"
+        android:layout_marginTop="18dp"
         android:layout_marginBottom="18dp"
+        android:id="@+id/call_text_row"
         >
 
         <TextView
@@ -27,13 +29,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:hint="Person Name"/>
         <TextView
             android:id="@+id/call_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10dp"
+            android:textSize="12dp"
             android:hint="time"
             android:layout_below="@+id/call_name"
             android:layout_marginLeft="10dp"
@@ -53,7 +55,7 @@
         android:layout_height="0.5dp"
         android:background="#D0000000"
         android:hint="Name"
-        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/call_text_row"
         />
 
 
