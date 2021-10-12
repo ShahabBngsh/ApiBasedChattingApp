@@ -30,7 +30,7 @@ public class NavigationActivity extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_camera,  R.id.navigation_chat, R.id.navigation_contacts)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_navigation);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
