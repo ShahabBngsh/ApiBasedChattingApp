@@ -16,9 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shahab.i180731_i180650.ChatRVAdapter;
 import com.shahab.i180731_i180650.ChatRVModel;
-import com.shahab.i180731_i180650.MessagesPageActivity;
-import com.shahab.i180731_i180650.MyAdapter;
-import com.shahab.i180731_i180650.MyModel;
 import com.shahab.i180731_i180650.R;
 import com.shahab.i180731_i180650.databinding.FragmentChatBinding;
 
