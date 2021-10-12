@@ -76,12 +76,10 @@
         android:layout_weight="8">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/callsRV"
-            android:layout_marginTop="20dp"
-
-            />
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
 
