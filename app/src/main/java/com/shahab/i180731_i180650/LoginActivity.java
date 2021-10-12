@@ -1,6 +1,7 @@
 package com.shahab.i180731_i180650;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
@@ -24,19 +25,16 @@ LoginActivity extends AppCompatActivity {
         txtView_signup = findViewById(R.id.login_register);
         txtView_signup.setOnClickListener(view -> launchSignupActivity());
 
-//        btn_login = findViewById(R.id.login_loginbtn);
-//        btn_login.setOnClickListener(view -> launchMessagesPageActivity());
         btn_login = findViewById(R.id.login_loginbtn);
-        btn_login.setOnClickListener(view -> launchCameraActivityforResult());
-        img_cap = (ImageView) findViewById(R.id.img_cap);
+        btn_login.setOnClickListener(view -> launchMessagesPageActivity());
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-//    private void launchMessagesPageActivity() {
-//        Intent StartIntent = new Intent(this, MessagesPageActivity.class);
-//        startActivity(StartIntent);
-//    }
-    private void launchCameraActivityforResult() {
-        Intent StartIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    }
+    private void launchMessagesPageActivity() {
+        Intent StartIntent = new Intent(this, MessagesPageActivity.class);
         startActivityForResult(StartIntent, pic_id);
     }
     
