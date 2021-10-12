@@ -34,7 +34,7 @@ LoginActivity extends AppCompatActivity {
 
     }
     private void launchMessagesPageActivity() {
-        Intent StartIntent = new Intent(this, MessagesPageActivity.class);
+        Intent StartIntent = new Intent(this, NavigationActivity.class);
         startActivityForResult(StartIntent, pic_id);
     }
     
