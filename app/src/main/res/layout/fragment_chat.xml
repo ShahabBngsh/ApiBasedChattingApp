@@ -12,7 +12,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@drawable/top_bar_edges"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,9 +22,44 @@
 
             <Button
                 android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/ic_baseline_note_24"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+
+                android:background="@drawable/ic_baseline_arrow_back_24"
+                app:backgroundTint="#777777"
+
+                />
+
+            <TextView
+                android:id="@+id/message_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+
+                android:text="Janet Fowler"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/message_status"
+                android:layout_centerHorizontal="true"
+                android:text="Online now"
+                android:textSize="10dp"
+                />
+
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+
+                android:background="@drawable/ic_baseline_phone_in_talk_24"
+                app:backgroundTint="#777777"
+
                 />
 
         </RelativeLayout>
@@ -40,7 +77,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/chatRV"
+            android:id="@+id/callsRV"
+            android:layout_marginTop="20dp"
 
             />
 
