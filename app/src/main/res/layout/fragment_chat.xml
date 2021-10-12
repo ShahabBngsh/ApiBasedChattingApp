@@ -36,8 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-
                 android:text="Janet Fowler"
+                android:textColor="@color/white"
                 />
 
             <TextView
@@ -46,6 +46,7 @@
                 android:layout_below="@+id/message_status"
                 android:layout_centerHorizontal="true"
                 android:text="Online now"
+                android:textColor="@color/gray"
                 android:textSize="10dp"
                 />
 
