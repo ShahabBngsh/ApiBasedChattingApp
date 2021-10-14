@@ -74,7 +74,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8">
+        android:layout_weight="9">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/specific_chatRV"
@@ -83,9 +83,6 @@
             android:layout_marginTop="20dp"/>
 
     </LinearLayout>
-
-
-
 
 
     <TextView
@@ -101,6 +98,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <FrameLayout
+        android:layout_weight="0.1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/messagebar">
+        <ImageButton
+            android:id="@+id/specific_emoji"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_baseline_emoji_white"/>
+        <EditText
+            android:id="@+id/specific_typemessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Type your message"
+            android:textColor="@color/white"
+            android:paddingStart="45dp"
+            android:textSize="20sp"/>
+        <ImageButton
+            android:id="@+id/specific_send"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_baseline_send_white"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="310dp"
+            />
+    </FrameLayout>
 
 
 
