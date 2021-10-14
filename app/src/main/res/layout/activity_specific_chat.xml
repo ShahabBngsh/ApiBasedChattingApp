@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_specificChat"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.chat.ChatFragment"
+    tools:context=".SpecificChatActivity"
     android:weightSum="10"
     android:orientation="vertical"
     >
@@ -21,7 +22,6 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/chat_backarrow"
                 android:layout_width="20dp"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
@@ -33,7 +33,7 @@
                 />
 
             <TextView
-                android:id="@+id/message_status"
+                android:id="@+id/specific_message_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -44,7 +44,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/message_status"
+                android:layout_below="@+id/specific_message_status"
                 android:layout_centerHorizontal="true"
                 android:text="Online now"
                 android:textColor="@color/gray"
@@ -77,7 +77,7 @@
         android:layout_weight="8">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chatRV"
+            android:id="@+id/specific_chatRV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"/>
@@ -89,7 +89,7 @@
 
 
     <TextView
-        android:id="@+id/text_chat"
+        android:id="@+id/specific_text_chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

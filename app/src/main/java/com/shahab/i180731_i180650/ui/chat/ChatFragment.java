@@ -1,9 +1,11 @@
 package com.shahab.i180731_i180650.ui.chat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.shahab.i180731_i180650.ChatRVAdapter;
 import com.shahab.i180731_i180650.ChatRVModel;
 import com.shahab.i180731_i180650.R;
+import com.shahab.i180731_i180650.SpecificChatActivity;
 import com.shahab.i180731_i180650.databinding.FragmentChatBinding;
 
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ public class ChatFragment extends Fragment {
     RecyclerView rv;
     ChatRVAdapter adapter;
 
+    Button btn_backarrow;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +52,9 @@ public class ChatFragment extends Fragment {
             }
         });
 
+        btn_backarrow = root.findViewById(R.id.chat_backarrow);
+        btn_backarrow.setOnClickListener(view -> launchSpecificChatActicity());
+
         rv=root.findViewById(R.id.chatRV);
         ls=new ArrayList<>();
         ls.add(new ChatRVModel("Hey","i201550"));
@@ -61,6 +68,11 @@ public class ChatFragment extends Fragment {
 
 
         return root;
+    }
+
+    private void launchSpecificChatActicity() {
+        Intent intent = new Intent(getActivity(), SpecificChatActivity.class);
+        startActivity(intent);
     }
 
     @Override
