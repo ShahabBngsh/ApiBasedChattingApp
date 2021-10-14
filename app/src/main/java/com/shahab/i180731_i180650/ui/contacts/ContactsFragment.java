@@ -53,6 +53,9 @@ public class ContactsFragment extends Fragment {
         ls.add(new ContactRVModel("Piyush", "1"));
         ls.add(new ContactRVModel("Usama", "2"));
         ls.add(new ContactRVModel("Zain", "3"));
+        ls.add(new ContactRVModel("Jenny", "4"));
+        ls.add(new ContactRVModel("Janet", "5"));
+        ls.add(new ContactRVModel("Chad", "6"));
 
         adapter = new ContactRVAdapter(getActivity(), ls);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
