@@ -23,14 +23,14 @@
         >
 
         <TextView
-            android:id="@+id/specific_chat_name"
+            android:id="@+id/specific_chat_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:textSize="20dp"
             android:hint="message"/>
         <TextView
-            android:id="@+id/specific_chat_message"
+            android:id="@+id/specific_chat_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp"

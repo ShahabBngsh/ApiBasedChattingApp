@@ -37,29 +37,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Janet Fowler"
                 android:textColor="@color/white"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/message_status"
-                android:layout_centerHorizontal="true"
-                android:text="Online now"
-                android:textColor="@color/gray"
-                android:textSize="10dp"
+                android:text="1 new message"
                 />
 
 
             <Button
-                android:layout_width="20dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
 
-                android:background="@drawable/ic_baseline_phone_in_talk_24"
+                android:background="@drawable/ic_baseline_search_white"
                 app:backgroundTint="#777777"
 
                 />
