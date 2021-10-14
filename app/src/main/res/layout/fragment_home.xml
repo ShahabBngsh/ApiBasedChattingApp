@@ -71,6 +71,8 @@
             android:layout_height="match_parent"
             android:id="@+id/callRV"
             android:layout_marginTop="20dp"
+            android:background="@color/black"
+            android:foreground="@drawable/rv_transparent_gradient"
 
             />
 
