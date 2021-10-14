@@ -55,6 +55,15 @@
             android:background="@drawable/ic_baseline_phone_in_talk_24"
             android:backgroundTint="@color/white"/>
 
+        <View
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#D0FFFFFF"
+            android:hint="Name"
+            android:layout_below="@+id/contact_pid"
+            />
+
 
     </RelativeLayout>
 

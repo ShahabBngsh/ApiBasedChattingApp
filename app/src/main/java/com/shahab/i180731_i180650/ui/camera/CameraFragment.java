@@ -46,7 +46,7 @@ public class CameraFragment extends Fragment {
 
         final ImageView img_cap = binding.cameraResult;
         Intent StartIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivity(StartIntent);
+        startActivityForResult(StartIntent,111);
         return root;
 
     }
