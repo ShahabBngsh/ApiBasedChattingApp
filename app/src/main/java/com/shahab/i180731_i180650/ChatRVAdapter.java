@@ -49,8 +49,8 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.chatViewHo
         TextView message, time;
         public chatViewHolder(@NonNull View itemView) {
             super(itemView);
-            message =itemView.findViewById(R.id.call_name);
-            time =itemView.findViewById(R.id.call_status);
+            message =itemView.findViewById(R.id.chat_name);
+            time =itemView.findViewById(R.id.chat_message);
         }
     }
 }
