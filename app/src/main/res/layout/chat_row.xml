@@ -8,7 +8,7 @@
     >
 
     <ImageView
-        android:id="@+id/call_potrait"
+        android:id="@+id/chat_potrait"
         android:layout_width="50dp"
         android:layout_height="50dp"/>
 
@@ -23,19 +23,19 @@
         >
 
         <TextView
-            android:id="@+id/call_name"
+            android:id="@+id/chat_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:textSize="20dp"
             android:hint="message"/>
         <TextView
-            android:id="@+id/call_status"
+            android:id="@+id/chat_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp"
             android:hint="time"
-            android:layout_below="@+id/call_name"
+            android:layout_below="@+id/chat_name"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
