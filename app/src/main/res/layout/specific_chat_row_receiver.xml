@@ -27,6 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="20dp"
             android:hint="message"/>
         <TextView
@@ -35,6 +37,8 @@
             android:layout_height="wrap_content"
             android:textSize="10dp"
             android:hint="time"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:layout_below="@+id/chat_name"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
