@@ -64,6 +64,8 @@ public class SpecificChatActivity extends AppCompatActivity {
 
         long id = dbHelper.insertMessage(message, "09:30", 1, 0);
         Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
+
+        ls.add(new SpecificChatRVModel(message, "9:30", 0));
     }
 
     private void getAllMessages(int id) {
