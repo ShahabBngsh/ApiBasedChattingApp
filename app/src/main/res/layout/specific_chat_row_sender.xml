@@ -8,6 +8,7 @@
     >
 
     <ImageView
+        android:src="@drawable/ic_baseline_person_white"
         android:id="@+id/specific_chat_potrait"
         android:layout_alignParentEnd="true"
         android:layout_width="50dp"
