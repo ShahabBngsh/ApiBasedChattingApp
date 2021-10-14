@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +17,10 @@ LoginActivity extends AppCompatActivity {
     Button btn_login;
     private static final int pic_id = 1;
     TextView txtView_signup;
-    ImageView img_cap;
+
+    EditText login_email;
+    EditText login_password;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,10 @@ LoginActivity extends AppCompatActivity {
 
         btn_login = findViewById(R.id.login_loginbtn);
         btn_login.setOnClickListener(view -> launchMessagesPageActivity());
+
+        login_email = findViewById(R.id.login_email);
+        login_password = findViewById(R.id.login_password);
+
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -34,8 +42,18 @@ LoginActivity extends AppCompatActivity {
 
     }
     private void launchMessagesPageActivity() {
-        Intent StartIntent = new Intent(this, NavigationActivity.class);
-        startActivityForResult(StartIntent, pic_id);
+
+        String login_email_check = login_email.getText().toString();
+        String login_password_check = login_password.getText().toString();
+
+        if(login_email_check.equals("i180650@nu.edu.pk") && login_password_check.equals("SMD123") ) {
+            Intent StartIntent = new Intent(this, NavigationActivity.class);
+            startActivity(StartIntent);
+
+        }
+        else {
+            login_email.setText("Wrong credentials");
+        }
     }
     
 
