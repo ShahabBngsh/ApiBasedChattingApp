@@ -30,6 +30,7 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.chatViewHo
 
     @Override
     public void onBindViewHolder(@NonNull chatViewHolder holder, int position) {
+        holder.name.setText(ls.get(position).getName());
         holder.message.setText(ls.get(position).getMessage());
         holder.time.setText(ls.get(position).getTime());
         holder.message.setOnClickListener(new View.OnClickListener() {
@@ -46,11 +47,12 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.chatViewHo
     }
 
     public class chatViewHolder extends RecyclerView.ViewHolder {
-        TextView message, time;
+        TextView name, message, time;
         public chatViewHolder(@NonNull View itemView) {
             super(itemView);
-            message =itemView.findViewById(R.id.chat_name);
-            time =itemView.findViewById(R.id.chat_message);
+            name = itemView.findViewById(R.id.chat_name);
+            message = itemView.findViewById(R.id.chat_message);
+            time = itemView.findViewById(R.id.chat_time);
         }
     }
 }

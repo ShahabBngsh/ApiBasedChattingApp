@@ -1,11 +1,20 @@
 package com.shahab.i180731_i180650;
 
 public class ChatRVModel {
-    String message, time;
+    String name, message, time;
 
-    public ChatRVModel(String message, String time) {
+    public ChatRVModel(String name, String message, String time) {
+        this.name = name;
         this.message = message;
         this.time = time;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getMessage() {

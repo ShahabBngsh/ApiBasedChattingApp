@@ -57,9 +57,9 @@ public class ChatFragment extends Fragment {
 
         rv=root.findViewById(R.id.chatRV);
         ls=new ArrayList<>();
-        ls.add(new ChatRVModel("Hey","i201550"));
-        ls.add(new ChatRVModel("Lets meet up at 8pm","i201550"));
-        ls.add(new ChatRVModel("LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM","i201550"));
+        ls.add(new ChatRVModel("john snow", "she is ma queen", "01:35"));
+        ls.add(new ChatRVModel("mad queen","drakarys ...", "06:40"));
+        ls.add(new ChatRVModel("dumb and dumber","dany forgot ...", "06:09"));
 
         adapter=new ChatRVAdapter(getActivity(),ls);
         RecyclerView.LayoutManager lm=new LinearLayoutManager(getActivity());
