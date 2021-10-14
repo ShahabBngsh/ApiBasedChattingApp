@@ -1,5 +1,6 @@
 package com.shahab.i180731_i180650.ui.camera;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class CameraFragment extends Fragment {
         binding = FragmentCameraBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
+        final TextView textView = binding.textPicsend;
 //        img_cap.findViewById(R.id.camera_result);
         cameraViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -46,7 +47,7 @@ public class CameraFragment extends Fragment {
 
         final ImageView img_cap = binding.cameraResult;
         Intent StartIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(StartIntent,111);
+        this.startActivityForResult(StartIntent,pic_id);
         return root;
 
     }
@@ -55,17 +56,15 @@ public class CameraFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == pic_id) {
-            cameraViewModel.getmImg().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-                @Override
-                public void onChanged(@Nullable Integer imgid) {
-                    Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    img_cap.setImageBitmap(photo);
-                }
-            });
+        if (requestCode == pic_id && resultCode == Activity.RESULT_OK) {
 
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    binding.cameraResult.setImageBitmap(photo);
         }
+
+
     }
+
 
     @Override
     public void onDestroyView() {
