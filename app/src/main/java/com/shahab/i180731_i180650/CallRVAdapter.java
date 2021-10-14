@@ -14,9 +14,9 @@ import java.util.List;
 
 public class CallRVAdapter extends RecyclerView.Adapter<CallRVAdapter.chatViewHolder> {
     Context c;
-    List<ChatRVModel> ls;
+    List<CallRVModel> ls;
 
-    public CallRVAdapter(Context c, List<ChatRVModel> ls) {
+    public CallRVAdapter(Context c, List<CallRVModel> ls) {
         this.c = c;
         this.ls = ls;
     }
@@ -24,15 +24,15 @@ public class CallRVAdapter extends RecyclerView.Adapter<CallRVAdapter.chatViewHo
     @NonNull
     @Override
     public chatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View row= LayoutInflater.from(c).inflate(R.layout.chat_row, parent,false);
+        View row= LayoutInflater.from(c).inflate(R.layout.call_row, parent,false);
         return new chatViewHolder(row);
     }
 
     @Override
     public void onBindViewHolder(@NonNull chatViewHolder holder, int position) {
-        holder.message.setText(ls.get(position).getMessage());
-        holder.time.setText(ls.get(position).getTime());
-        holder.message.setOnClickListener(new View.OnClickListener() {
+        holder.call_name.setText(ls.get(position).getName());
+        holder.call_status.setText(ls.get(position).getStatus());
+        holder.call_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -46,11 +46,11 @@ public class CallRVAdapter extends RecyclerView.Adapter<CallRVAdapter.chatViewHo
     }
 
     public class chatViewHolder extends RecyclerView.ViewHolder {
-        TextView message, time;
+        TextView call_name, call_status;
         public chatViewHolder(@NonNull View itemView) {
             super(itemView);
-            message =itemView.findViewById(R.id.chat_name);
-            time =itemView.findViewById(R.id.chat_message);
+            call_name =itemView.findViewById(R.id.call_name);
+            call_status =itemView.findViewById(R.id.call_status);
         }
     }
 }
