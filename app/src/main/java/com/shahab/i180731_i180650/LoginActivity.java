@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,13 +47,13 @@ LoginActivity extends AppCompatActivity {
         String login_email_check = login_email.getText().toString();
         String login_password_check = login_password.getText().toString();
 
-        if(login_email_check.equals("i180650@nu.edu.pk") && login_password_check.equals("SMD123") ) {
+        if(login_email_check.equals("user1") && login_password_check.equals("user1") ) {
             Intent StartIntent = new Intent(this, NavigationActivity.class);
             startActivity(StartIntent);
 
         }
         else {
-            login_email.setText("Wrong credentials");
+            Toast.makeText(this, "Wrong credentials", Toast.LENGTH_SHORT).show();
         }
     }
     
