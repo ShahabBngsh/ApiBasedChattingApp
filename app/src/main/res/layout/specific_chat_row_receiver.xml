@@ -16,9 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/chat_rounded_sender"
-        android:backgroundTint="@color/purple_500"
+        android:background="@drawable/chat_rounded_receiver"
         android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
         android:layout_marginBottom="18dp"
         >
 

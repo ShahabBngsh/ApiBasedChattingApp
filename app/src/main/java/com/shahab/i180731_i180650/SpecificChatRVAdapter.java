@@ -24,8 +24,16 @@ public class SpecificChatRVAdapter extends RecyclerView.Adapter<SpecificChatRVAd
     @NonNull
     @Override
     public specificChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View row= LayoutInflater.from(c).inflate(R.layout.specific_chat_row, parent,false);
-        return new specificChatViewHolder(row);
+        if (viewType == 0){
+            View row= LayoutInflater.from(c).inflate(R.layout.specific_chat_row_sender, parent,false);
+            return new specificChatViewHolder(row);
+        }
+
+        else {
+            View row= LayoutInflater.from(c).inflate(R.layout.specific_chat_row_receiver, parent,false);
+            return new specificChatViewHolder(row);
+        }
+
     }
 
     @Override
@@ -45,6 +53,16 @@ public class SpecificChatRVAdapter extends RecyclerView.Adapter<SpecificChatRVAd
         return ls.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (ls.get(position).getViewType() == 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+
     public class specificChatViewHolder extends RecyclerView.ViewHolder {
         TextView message, time;
         public specificChatViewHolder(@NonNull View itemView) {
@@ -53,4 +71,7 @@ public class SpecificChatRVAdapter extends RecyclerView.Adapter<SpecificChatRVAd
             time =itemView.findViewById(R.id.specific_chat_time);
         }
     }
+
+
+
 }
