@@ -29,6 +29,7 @@ public class CameraFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         cameraViewModel =
                 new ViewModelProvider(this).get(CameraViewModel.class);
 

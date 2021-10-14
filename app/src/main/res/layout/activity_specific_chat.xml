@@ -8,6 +8,7 @@
     tools:context=".SpecificChatActivity"
     android:weightSum="10"
     android:orientation="vertical"
+    android:background="@color/black"
     >
 
     <LinearLayout
