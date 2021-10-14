@@ -2,10 +2,12 @@ package com.shahab.i180731_i180650;
 
 public class SpecificChatRVModel {
     String message, time;
+    int viewType;
 
-    public SpecificChatRVModel(String message, String time) {
+    public SpecificChatRVModel(String message, String time, int viewType) {
         this.message = message;
         this.time = time;
+        this.viewType = viewType;
     }
 
     public String getMessage() {
@@ -22,5 +24,9 @@ public class SpecificChatRVModel {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getViewType() {
+        return viewType;
     }
 }

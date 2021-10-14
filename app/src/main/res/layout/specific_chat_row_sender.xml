@@ -9,6 +9,7 @@
 
     <ImageView
         android:id="@+id/specific_chat_potrait"
+        android:layout_alignParentEnd="true"
         android:layout_width="50dp"
         android:layout_height="50dp"/>
 
@@ -16,8 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/chat_rounded"
-        android:backgroundTint="@color/purple_500"
+        android:background="@drawable/chat_rounded_sender"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="60dp"
         android:layout_marginLeft="60dp"
         android:layout_marginBottom="18dp"
         >
@@ -36,6 +38,7 @@
             android:textSize="10dp"
             android:hint="time"
             android:layout_below="@+id/chat_name"
+            android:layout_gravity="end"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
