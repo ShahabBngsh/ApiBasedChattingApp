@@ -13,7 +13,7 @@ public class CameraViewModel extends ViewModel {
 
     public CameraViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("Send at recent contacts");
 
 
     }
