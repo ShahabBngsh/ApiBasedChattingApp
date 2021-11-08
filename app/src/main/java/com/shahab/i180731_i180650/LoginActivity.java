@@ -13,6 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class
 LoginActivity extends AppCompatActivity {
     Button btn_login;
@@ -48,6 +51,12 @@ LoginActivity extends AppCompatActivity {
         String login_password_check = login_password.getText().toString();
 
         if(login_email_check.equals("user1") && login_password_check.equals("user1") ) {
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("message");
+
+            myRef.setValue("Hello, World!");
+
             Intent StartIntent = new Intent(this, NavigationActivity.class);
             startActivity(StartIntent);
 
