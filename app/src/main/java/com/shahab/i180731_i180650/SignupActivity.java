@@ -25,6 +25,7 @@ public class SignupActivity extends AppCompatActivity {
 
     TextView txtView_email;
     TextView txtView_password;
+    TextView txtView_confirmpassword;
 
 
     private FirebaseAuth mAuth;
@@ -42,6 +43,7 @@ public class SignupActivity extends AppCompatActivity {
 
         txtView_email = findViewById(R.id.signup_email);
         txtView_password = findViewById(R.id.signup_password);
+        txtView_confirmpassword = findViewById(R.id.signup_confirmpassword);
 
         btn_signup = findViewById(R.id.signup_signup);
         btn_signup.setOnClickListener(view -> initiateSignUp());
@@ -57,18 +59,20 @@ public class SignupActivity extends AppCompatActivity {
 
         String email = txtView_email.getText().toString();
         String password = txtView_password.getText().toString();
+        String confirmpassword = txtView_confirmpassword.getText().toString();
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(SignupActivity.this, password,
-                                    Toast.LENGTH_SHORT).show();
+        if (password.equals(confirmpassword)) {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Toast.makeText(SignupActivity.this, password,
+                                        Toast.LENGTH_SHORT).show();
 
-                            Log.d("TAG", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                                Log.d("TAG", "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
 
                             String userid = user.getUid();
 
@@ -81,23 +85,32 @@ public class SignupActivity extends AppCompatActivity {
 
                             FirebaseAuth.getInstance().signOut();
 
-                            Intent loginIntent = new Intent(SignupActivity.this, LoginActivity.class);
-                            startActivity(loginIntent);
+                                Intent loginIntent = new Intent(SignupActivity.this, LoginActivity.class);
+                                startActivity(loginIntent);
 
 
 //                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(SignupActivity.this, email,
-                                    Toast.LENGTH_SHORT).show();
-                            Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignupActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            } else {
+                                // If sign in fails, display a message to the user.
+//                                Toast.makeText(SignupActivity.this, email,
+//                                        Toast.LENGTH_SHORT).show();
+                                if (password.length()<8) {
+                                    Toast.makeText(SignupActivity.this, "Password should be at least 8 characters long",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(SignupActivity.this, "Email is already registered!",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                                
+                                Log.w("TAG", "createUserWithEmail:failure", task.getException());
+
 //                            updateUI(null);
+                            }
                         }
-                    }
-                });
+                    });
 
+        } else {
+            Toast.makeText(this, "Password are not matching", Toast.LENGTH_SHORT).show();
+        }
     }
-
 }
