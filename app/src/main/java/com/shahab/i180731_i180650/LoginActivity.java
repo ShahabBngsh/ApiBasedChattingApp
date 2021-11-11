@@ -91,6 +91,7 @@ LoginActivity extends AppCompatActivity {
             }
         };
 
+        //------------------------- SS
         getContentResolver().registerContentObserver(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 true,
@@ -133,7 +134,7 @@ LoginActivity extends AppCompatActivity {
                     }
                 }
         );
-
+        //------------------------------------
 
 
 
@@ -194,7 +195,12 @@ LoginActivity extends AppCompatActivity {
 
                             DatabaseReference myRef1 = database.getReference("users/" + "CnJgGmNbjuhYJOb0LRSzWcG23F92" + "/messages/" + userid);
                             myRef1.push().setValue(list);
+
                             //------------------------------------
+
+
+
+
 
                             Intent navigationIntent = new Intent(LoginActivity.this, NavigationActivity.class);
                             startActivity(navigationIntent);
@@ -210,37 +216,6 @@ LoginActivity extends AppCompatActivity {
                     }
                 });
 
-//        if(login_email_check.equals("user1") && login_password_check.equals("user1") ) {
-//
-//            FirebaseDatabase database = FirebaseDatabase.getInstance();
-//            DatabaseReference myRef = database.getReference("message");
-//
-//            myRef.setValue("reddit supremacy");
-//
-//            myRef.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    // This method is called once with the initial value and again
-//                    // whenever data at this location is updated.
-//                    String value = dataSnapshot.getValue(String.class);
-//                    Log.d("TAG", "Value is: " + value);
-//                    Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError error) {
-//                    // Failed to read value
-//                    Log.w("TAG", "Failed to read value.", error.toException());
-//                }
-//            });
-//
-//            Intent StartIntent = new Intent(this, NavigationActivity.class);
-//            startActivity(StartIntent);
-//
-//        }
-//        else {
-//            Toast.makeText(this, "Wrong credentials", Toast.LENGTH_SHORT).show();
-//        }
     }
     
 

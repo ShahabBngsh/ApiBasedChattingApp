@@ -1,6 +1,9 @@
 package com.shahab.i180731_i180650.ui.contacts;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +51,16 @@ public class ContactsFragment extends Fragment {
         });
 
         rv = root.findViewById(R.id.contactRV);
+
+
+
+
+
+
+
+
+
+
         ls = new ArrayList<>();
         ls.add(new ContactRVModel("Shahab", "0"));
         ls.add(new ContactRVModel("Piyush", "1"));
@@ -62,6 +75,20 @@ public class ContactsFragment extends Fragment {
         rv.setLayoutManager(lm);
         rv.setAdapter(adapter);
         return root;
+    }
+
+    public void function() {
+        Cursor phones = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null, null);
+        while (phones.moveToNext())
+        {
+            String name=phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+            ls.add(new ContactRVModel(name, phoneNumber));
+
+
+        }
+        phones.close();
     }
 
     @Override
