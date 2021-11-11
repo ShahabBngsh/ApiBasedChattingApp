@@ -1,6 +1,7 @@
 package com.shahab.i180731_i180650;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -64,6 +66,7 @@ public class SignupActivity extends AppCompatActivity {
         if (password.equals(confirmpassword)) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -72,20 +75,18 @@ public class SignupActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
 
                                 Log.d("TAG", "createUserWithEmail:success");
+
                                 FirebaseUser user = mAuth.getCurrentUser();
-
-                            String userid = user.getUid();
-
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile");
-
-                            Profile userProfile = new Profile("piyush", "03331231231", "ad", "i like frenchfries");
-
-                            myRef.setValue(userProfile);
+                                //----------------------------------- move this code to new page
+                                String userid = user.getUid();
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference myRef = database.getReference("users/" + userid + "/Profile");
+                                Profile userProfile = new Profile(email, "03331231231", "ad", "i like whatever");
+                                myRef.setValue(userProfile);
+                                //----------------------------------
 
 
-
-                            FirebaseAuth.getInstance().signOut();
+                                FirebaseAuth.getInstance().signOut();
 
                                 Intent loginIntent = new Intent(SignupActivity.this, LoginActivity.class);
                                 startActivity(loginIntent);

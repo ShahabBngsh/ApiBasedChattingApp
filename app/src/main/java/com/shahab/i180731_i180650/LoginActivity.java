@@ -36,6 +36,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class
 LoginActivity extends AppCompatActivity {
     Button btn_login;
@@ -172,6 +179,22 @@ LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+
+                            //------------------------------- move it to the message screen
+                            String userid = user.getUid();
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference("users/" + userid + "/messages/" + "CnJgGmNbjuhYJOb0LRSzWcG23F92");
+
+                            List<String> list = new ArrayList<>();
+                            list.add("another random message");
+                            list.add(Calendar.getInstance().getTime().toString());
+                            myRef.push().setValue(list);
+
+
+                            DatabaseReference myRef1 = database.getReference("users/" + "CnJgGmNbjuhYJOb0LRSzWcG23F92" + "/messages/" + userid);
+                            myRef1.push().setValue(list);
+                            //------------------------------------
 
                             Intent navigationIntent = new Intent(LoginActivity.this, NavigationActivity.class);
                             startActivity(navigationIntent);
