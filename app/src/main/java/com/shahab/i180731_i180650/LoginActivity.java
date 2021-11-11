@@ -182,21 +182,21 @@ LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
 
 
-                            //------------------------------- move it to the message screen
-                            String userid = user.getUid();
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = database.getReference("users/" + userid + "/messages/" + "CnJgGmNbjuhYJOb0LRSzWcG23F92");
-
-                            List<String> list = new ArrayList<>();
-                            list.add("another random message");
-                            list.add(Calendar.getInstance().getTime().toString());
-                            myRef.push().setValue(list);
-
-
-                            DatabaseReference myRef1 = database.getReference("users/" + "CnJgGmNbjuhYJOb0LRSzWcG23F92" + "/messages/" + userid);
-                            myRef1.push().setValue(list);
-
-                            //------------------------------------
+//                            //------------------------------- move it to the message screen
+//                            String userid = user.getUid();
+//                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                            DatabaseReference myRef = database.getReference("users/" + userid + "/messages/" + "CnJgGmNbjuhYJOb0LRSzWcG23F92");
+//
+//                            List<String> list = new ArrayList<>();
+//                            list.add("another random message");
+//                            list.add(Calendar.getInstance().getTime().toString());
+//                            myRef.push().setValue(list);
+//
+//
+//                            DatabaseReference myRef1 = database.getReference("users/" + "CnJgGmNbjuhYJOb0LRSzWcG23F92" + "/messages/" + userid);
+//                            myRef1.push().setValue(list);
+//
+//                            //------------------------------------
 
 
 
