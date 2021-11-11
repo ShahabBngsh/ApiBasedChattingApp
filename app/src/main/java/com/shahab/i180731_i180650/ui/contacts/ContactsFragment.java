@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Contacts;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -142,7 +143,9 @@ public class ContactsFragment extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot child: snapshot.getChildren()) {
                                 String key = child.getKey();
-                                Toast.makeText(getContext(), key, Toast.LENGTH_SHORT);
+                                Toast.makeText(getContext(), key, Toast.LENGTH_SHORT).show();
+                                Log.d("TAG", key);
+
                             }
                         }
 
