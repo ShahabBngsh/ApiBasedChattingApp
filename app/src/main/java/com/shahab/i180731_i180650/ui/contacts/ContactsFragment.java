@@ -69,7 +69,7 @@ public class ContactsFragment extends Fragment {
 
 
         ls = new ArrayList<>();
-
+        getContactsList();
 
         ls.add(new ContactRVModel("Shahab", "0"));
         ls.add(new ContactRVModel("Piyush", "1"));
@@ -126,7 +126,8 @@ public class ContactsFragment extends Fragment {
             if (contactPhones != null) {
                 for (String phone :
                         contactPhones) {
-                    Toast.makeText(getActivity(), phone, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), phone, Toast.LENGTH_SHORT).show();
+                    ls.add(new ContactRVModel(name, phone));
 //                    addContact(contactId, name, phone, photo);
                 }
             }
