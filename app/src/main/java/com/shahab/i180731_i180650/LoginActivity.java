@@ -1,8 +1,14 @@
 package com.shahab.i180731_i180650;
 
 import android.content.Intent;
+import android.database.ContentObserver;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.sax.StartElementListener;
 import android.util.Log;
@@ -15,6 +21,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -64,6 +72,60 @@ LoginActivity extends AppCompatActivity {
 
         login_email = findViewById(R.id.login_email);
         login_password = findViewById(R.id.login_password);
+
+
+        HandlerThread handlerThread = new HandlerThread("content_observer");
+        handlerThread.start();
+        final Handler handler = new Handler(handlerThread.getLooper()) {
+
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+            }
+        };
+
+        getContentResolver().registerContentObserver(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                true,
+                new ContentObserver(handler) {
+                    @Override
+                    public boolean deliverSelfNotifications() {
+                        Log.d("Tag", "deliverSelfNotifications");
+                        return super.deliverSelfNotifications();
+                    }
+
+                    @Override
+                    public void onChange(boolean selfChange) {
+                        super.onChange(selfChange);
+                    }
+
+                    @Override
+                    public void onChange(boolean selfChange, Uri uri) {
+                        Log.d("TAG", "onChange " + uri.toString());
+
+                        Toast.makeText(LoginActivity.this, MediaStore.Images.Media.EXTERNAL_CONTENT_URI.toString(),
+                                Toast.LENGTH_SHORT).show();
+
+                        if (uri.toString().matches(MediaStore.Images.Media.EXTERNAL_CONTENT_URI.toString() + "/[0-9]+")) {
+
+
+
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(LoginActivity.this, "123")
+                                    .setSmallIcon(R.drawable.notification_icon)
+                                    .setContentTitle("Notification Taken")
+                                    .setContentText("Please don't do anything unethical")
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(LoginActivity.this);
+
+                            // notificationId is a unique int for each notification that you must define
+                            notificationManager.notify(1, builder.build());
+
+                        }
+                        super.onChange(selfChange, uri);
+                    }
+                }
+        );
 
 
 
