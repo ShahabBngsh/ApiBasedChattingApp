@@ -21,6 +21,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.shahab.i180731_i180650.ContactRVAdapter;
 import com.shahab.i180731_i180650.ContactRVModel;
 import com.shahab.i180731_i180650.R;
@@ -126,9 +133,26 @@ public class ContactsFragment extends Fragment {
             if (contactPhones != null) {
                 for (String phone :
                         contactPhones) {
-//                    Toast.makeText(getActivity(), phone, Toast.LENGTH_SHORT).show();
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference contact_ref = database.getReference();
+
+                    Query query_contact = contact_ref.child("users").orderByChild("contact_no").equalTo(phone);
+                    query_contact.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot child: snapshot.getChildren()) {
+                                String key = child.getKey();
+                                Toast.makeText(getContext(), key, Toast.LENGTH_SHORT);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                     ls.add(new ContactRVModel(name, phone));
-//                    addContact(contactId, name, phone, photo);
                 }
             }
         }
