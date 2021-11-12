@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,8 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class
-LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     Button btn_login;
     private static final int pic_id = 1;
     TextView txtView_signup;
@@ -67,9 +67,6 @@ LoginActivity extends AppCompatActivity {
         // ...
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-
-
 
         txtView_signup = findViewById(R.id.login_register);
         txtView_signup.setOnClickListener(view -> launchSignupActivity());
@@ -116,8 +113,6 @@ LoginActivity extends AppCompatActivity {
 
                         if (uri.toString().matches(MediaStore.Images.Media.EXTERNAL_CONTENT_URI.toString() + "/[0-9]+")) {
 
-
-
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(LoginActivity.this, "123")
                                     .setSmallIcon(R.drawable.notification_icon)
                                     .setContentTitle("Notification Taken")
@@ -143,15 +138,12 @@ LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
-
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             Intent navigationIntent = new Intent(LoginActivity.this, NavigationActivity.class);
             startActivity(navigationIntent);
         }
-
     }
 
     @Override
@@ -180,7 +172,6 @@ LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
 
 //                            //------------------------------- move it to the message screen
 //                            String userid = user.getUid();
@@ -217,7 +208,6 @@ LoginActivity extends AppCompatActivity {
                 });
 
     }
-    
 
     private void launchSignupActivity() {
         Intent intent = new Intent(this, SignupActivity.class);

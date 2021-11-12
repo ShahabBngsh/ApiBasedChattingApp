@@ -79,6 +79,7 @@ public class SignupActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //----------------------------------- move this code to new page
                                 String userid = user.getUid();
+
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference myRef = database.getReference("users/" + userid + "/Profile");
                                 Profile userProfile = new Profile(email, "03331231231", "ad", "i like whatever");
@@ -94,9 +95,6 @@ public class SignupActivity extends AppCompatActivity {
 
 //                            updateUI(user);
                             } else {
-                                // If sign in fails, display a message to the user.
-//                                Toast.makeText(SignupActivity.this, email,
-//                                        Toast.LENGTH_SHORT).show();
                                 if (password.length()<8) {
                                     Toast.makeText(SignupActivity.this, "Password should be at least 8 characters long",
                                             Toast.LENGTH_SHORT).show();
