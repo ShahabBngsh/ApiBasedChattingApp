@@ -8,11 +8,14 @@
     android:weightSum="10">
 
     <RelativeLayout
+        android:id="@+id/chat_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:backgroundTint="#5C5B5B"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:clickable="true"
+        >
 
         <ImageView
             android:id="@+id/chat_portrait"

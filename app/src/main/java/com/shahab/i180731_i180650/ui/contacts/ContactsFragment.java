@@ -70,12 +70,6 @@ public class ContactsFragment extends Fragment {
 
 
 
-
-
-
-
-
-
         ls = new ArrayList<>();
         getContactsList();
 

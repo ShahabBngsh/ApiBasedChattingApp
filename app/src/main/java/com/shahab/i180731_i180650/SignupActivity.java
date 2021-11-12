@@ -93,7 +93,6 @@ public class SignupActivity extends AppCompatActivity {
                                 startActivity(loginIntent);
 
 
-//                            updateUI(user);
                             } else {
                                 if (password.length()<8) {
                                     Toast.makeText(SignupActivity.this, "Password should be at least 8 characters long",
@@ -105,7 +104,6 @@ public class SignupActivity extends AppCompatActivity {
                                 
                                 Log.w("TAG", "createUserWithEmail:failure", task.getException());
 
-//                            updateUI(null);
                             }
                         }
                     });

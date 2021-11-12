@@ -2,10 +2,12 @@ package com.shahab.i180731_i180650;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,10 +35,27 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.chatViewHo
         holder.name.setText(ls.get(position).getName());
         holder.message.setText(ls.get(position).getMessage());
         holder.time.setText(ls.get(position).getTime());
+
+        rowClickListeners(holder);
+    }
+
+    private void rowClickListeners(@NonNull chatViewHolder holder) {
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchSpecificChatActicity();
+            }
+        });
         holder.message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                launchSpecificChatActicity();
+            }
+        });
+        holder.time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchSpecificChatActicity();
             }
         });
     }
@@ -55,5 +74,11 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.chatViewHo
             time = itemView.findViewById(R.id.chat_time);
         }
     }
+
+    private void launchSpecificChatActicity() {
+        Intent intent = new Intent(c, SpecificChatActivity.class);
+        c.startActivity(intent);
+    }
+
 }
 

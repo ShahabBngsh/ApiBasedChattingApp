@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,9 +53,6 @@ public class ChatFragment extends Fragment {
             }
         });
 
-        btn_backarrow = root.findViewById(R.id.chat_backarrow);
-        btn_backarrow.setOnClickListener(view -> launchSpecificChatActicity());
-
         rv=root.findViewById(R.id.chatRV);
         ls=new ArrayList<>();
         ls.add(new ChatRVModel("john snow", "she is ma queen", "01:35"));
@@ -68,11 +66,6 @@ public class ChatFragment extends Fragment {
 
 
         return root;
-    }
-
-    private void launchSpecificChatActicity() {
-        Intent intent = new Intent(getActivity(), SpecificChatActivity.class);
-        startActivity(intent);
     }
 
     @Override
