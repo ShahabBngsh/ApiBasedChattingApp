@@ -17,45 +17,19 @@
         android:background="@drawable/top_bar_edges"
         >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <SearchView
+            android:id="@+id/chat_search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="20dp"
+            app:actionViewClass="android.support.v7.widget.SearchView"
+            android:closeIcon="@drawable/ic_baseline_close_24"
+            android:searchIcon="@drawable/ic_baseline_search_white"
+            android:iconifiedByDefault="true">
 
-            <Button
-                android:id="@+id/chat_backarrow"
-                android:layout_width="20dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-
-                android:background="@drawable/ic_baseline_arrow_back_24"
-                app:backgroundTint="#777777"
-
-                />
-
-            <TextView
-                android:id="@+id/message_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textColor="@color/white"
-                android:text="1 new message"
-                />
-
-
-            <Button
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-
-                android:background="@drawable/ic_baseline_search_white"
-                app:backgroundTint="#777777"
-
-                />
-
-        </RelativeLayout>
+            <requestFocus />
+        </SearchView>
 
 
 

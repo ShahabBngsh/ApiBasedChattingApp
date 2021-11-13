@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +22,11 @@ import com.shahab.i180731_i180650.CallRVModel;
 import com.shahab.i180731_i180650.R;
 import com.shahab.i180731_i180650.databinding.FragmentHomeBinding;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -32,6 +34,9 @@ public class HomeFragment extends Fragment {
     List<CallRVModel> ls;
     RecyclerView rv;
     CallRVAdapter adapter;
+
+    SearchView searchView;
+    ArrayList<CallRVModel> arrayList = new ArrayList<CallRVModel>();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -60,13 +65,30 @@ public class HomeFragment extends Fragment {
         ls.add(new CallRVModel("Usama", "work"));
         ls.add(new CallRVModel("Zain", "sad laptop"));
 
-        adapter = new CallRVAdapter(getActivity(), ls);
+        arrayList.addAll(ls);
+
+        adapter = new CallRVAdapter(getActivity(), arrayList);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(lm);
         rv.setAdapter(adapter);
 
+        searchView = root.findViewById(R.id.home_search);
+        searchView.setOnQueryTextListener(this);
+
         return root;
     }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.filter(newText);
+        return true;
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

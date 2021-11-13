@@ -4,20 +4,30 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shahab.i180731_i180650.ui.contacts.ContactsViewModel;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class ContactRVAdapter extends RecyclerView.Adapter<ContactRVAdapter.contactViewHolder> {
+public class ContactRVAdapter extends RecyclerView.Adapter<ContactRVAdapter.contactViewHolder> implements Filterable {
     Context c;
     List<ContactRVModel> ls;
+    ArrayList<ContactRVModel> lsCopy;
+
 
     public ContactRVAdapter(Context c, List<ContactRVModel> ls) {
         this.c = c;
         this.ls = ls;
+        this.lsCopy = new ArrayList<ContactRVModel>();
+        this.lsCopy.addAll(ls);
     }
 
     @NonNull
@@ -31,11 +41,25 @@ public class ContactRVAdapter extends RecyclerView.Adapter<ContactRVAdapter.cont
     public void onBindViewHolder(@NonNull contactViewHolder holder, int position) {
         holder.name.setText(ls.get(position).getName());
         holder.pid.setText(ls.get(position).getPid());
+        rowClickListeners(holder);
+    }
+    private void rowClickListeners(@NonNull contactViewHolder holder) {
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                launchSpecificCallActicity();
             }
         });
+        holder.pid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchSpecificCallActicity();
+            }
+        });
+    }
+
+    private void launchSpecificCallActicity() {
+        Toast.makeText(c, "Calling", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -50,5 +74,26 @@ public class ContactRVAdapter extends RecyclerView.Adapter<ContactRVAdapter.cont
             name = itemView.findViewById(R.id.contact_name);
             pid = itemView.findViewById(R.id.contact_pid);
         }
+    }
+
+    //for search and filtering RV
+    @Override
+    public Filter getFilter() {
+        return null;
+    }
+    //for search and filtering RV
+    public void filter(String text) {
+        ls.clear();
+        if(text.isEmpty()){
+            ls.addAll(lsCopy);
+        } else{
+            text = text.toLowerCase();
+            for(ContactRVModel item: lsCopy){
+                if(item.name.toLowerCase().contains(text) || item.pid.toLowerCase().contains(text)){
+                    ls.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
