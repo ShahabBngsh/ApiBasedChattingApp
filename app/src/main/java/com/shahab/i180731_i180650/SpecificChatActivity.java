@@ -2,11 +2,14 @@ package com.shahab.i180731_i180650;
 
 import static java.security.AccessController.getContext;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import java.time.LocalTime;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -22,7 +25,6 @@ import java.util.List;
 
 public class SpecificChatActivity extends AppCompatActivity {
     DBHandler dbHelper;
-//    SQLiteDatabase db = dbHelper.getWritableDatabase();
 
     List<SpecificChatRVModel> ls;
     RecyclerView rv;
@@ -30,6 +32,8 @@ public class SpecificChatActivity extends AppCompatActivity {
 
     ImageButton imgbtn_send;
     EditText edittxt_message;
+
+    Button btn_back;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,8 +43,10 @@ public class SpecificChatActivity extends AppCompatActivity {
 
         imgbtn_send = findViewById(R.id.specific_send);
         imgbtn_send.setOnClickListener(view -> sendMessage());
-
         edittxt_message = findViewById(R.id.specific_typemessage);
+
+        btn_back = findViewById(R.id.specific_chat_backarrow);
+        btn_back.setOnClickListener(view -> goBack2Chats());
 
         rv=findViewById(R.id.specific_chatRV);
         ls=new ArrayList<>();
@@ -56,7 +62,11 @@ public class SpecificChatActivity extends AppCompatActivity {
         dbHelper = new DBHandler(this);
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void goBack2Chats() {
+        finish();
+    }
+
+    //    @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendMessage() {
 //        Toast.makeText(this, this.edittxt_message.getText().toString(), Toast.LENGTH_SHORT).show();
         String message = edittxt_message.getText().toString();

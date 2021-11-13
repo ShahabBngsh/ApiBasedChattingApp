@@ -23,7 +23,8 @@
             android:layout_height="match_parent">
 
             <Button
-                android:layout_width="20dp"
+                android:id="@+id/specific_chat_backarrow"
+                android:layout_width="30dp"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"

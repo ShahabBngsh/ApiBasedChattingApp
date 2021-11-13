@@ -16,48 +16,19 @@
         android:layout_weight="1"
         android:background="@drawable/top_bar_edges">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <SearchView
+            android:id="@+id/contacts_search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="20dp"
+            app:actionViewClass="android.support.v7.widget.SearchView"
+            android:closeIcon="@drawable/ic_baseline_close_24"
+            android:searchIcon="@drawable/ic_baseline_search_white"
+            android:iconifiedByDefault="true">
 
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-
-                android:background="@drawable/ic_baseline_note_24"
-                app:backgroundTint="#777777" />
-
-            <TextView
-                android:id="@+id/message_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Janet Fowler"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/message_status"
-                android:layout_centerHorizontal="true"
-                android:text="Online now"
-                android:textSize="10dp"
-                android:textColor="@color/gray" />
-
-
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="25dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-
-                android:background="@drawable/ic_baseline_phone_in_talk_24"
-                app:backgroundTint="#777777" />
-
-        </RelativeLayout>
+            <requestFocus />
+        </SearchView>
 
     </LinearLayout>
 

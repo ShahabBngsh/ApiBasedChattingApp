@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ContactsFragment extends Fragment {
+public class ContactsFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private ContactsViewModel notificationsViewModel;
     private FragmentContactsBinding binding;
@@ -51,6 +52,9 @@ public class ContactsFragment extends Fragment {
     List<ContactRVModel> ls;
     RecyclerView rv;
     ContactRVAdapter adapter;
+
+    SearchView searchView;
+    ArrayList<ContactRVModel> arrayList = new ArrayList<ContactRVModel>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,16 +73,6 @@ public class ContactsFragment extends Fragment {
         });
 
         rv = root.findViewById(R.id.contactRV);
-
-
-
-
-
-
-
-
-
-
         ls = new ArrayList<>();
         adapter = new ContactRVAdapter(getActivity(), ls);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
@@ -86,6 +80,7 @@ public class ContactsFragment extends Fragment {
         rv.setAdapter(adapter);
 
         getContactsList();
+        arrayList.addAll(ls);
 
         ls.add(new ContactRVModel("Shahab", "0"));
         ls.add(new ContactRVModel("Piyush", "1"));
@@ -96,10 +91,31 @@ public class ContactsFragment extends Fragment {
         ls.add(new ContactRVModel("Chad", "6"));
 
 
+        adapter = new ContactRVAdapter(getActivity(), arrayList);
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
+        rv.setLayoutManager(lm);
+        rv.setAdapter(adapter);
+
+        searchView = root.findViewById(R.id.contacts_search);
+        searchView.setOnQueryTextListener(this);
 
         return root;
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String text = newText;
+        adapter.filter(text);
+        return true;
+    }
+
+    // NOTE: make sure you've given permission to the app to read contacts from the setting
+    //get all name and contact number from mobile's contact list
     private void getContactsList() {
         ContentResolver resolver = getActivity().getContentResolver();
         Map<Long, List<String>> phones = new HashMap<>();

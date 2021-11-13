@@ -1,11 +1,10 @@
 package com.shahab.i180731_i180650.ui.chat;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,13 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.shahab.i180731_i180650.ChatRVAdapter;
 import com.shahab.i180731_i180650.ChatRVModel;
 import com.shahab.i180731_i180650.R;
-import com.shahab.i180731_i180650.SpecificChatActivity;
 import com.shahab.i180731_i180650.databinding.FragmentChatBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatFragment extends Fragment {
+import android.widget.SearchView;
+
+
+public class ChatFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     private ChatViewModel dashboardViewModel;
     private FragmentChatBinding binding;
@@ -34,7 +35,9 @@ public class ChatFragment extends Fragment {
     RecyclerView rv;
     ChatRVAdapter adapter;
 
-    Button btn_backarrow;
+    SearchView searchView;
+    ArrayList<ChatRVModel> arraylist = new ArrayList<ChatRVModel>();
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,28 +55,40 @@ public class ChatFragment extends Fragment {
             }
         });
 
-        btn_backarrow = root.findViewById(R.id.chat_backarrow);
-        btn_backarrow.setOnClickListener(view -> launchSpecificChatActicity());
-
         rv=root.findViewById(R.id.chatRV);
         ls=new ArrayList<>();
         ls.add(new ChatRVModel("john snow", "she is ma queen", "01:35"));
         ls.add(new ChatRVModel("mad queen","drakarys ...", "06:40"));
         ls.add(new ChatRVModel("dumb and dumber","dany forgot ...", "06:09"));
 
-        adapter=new ChatRVAdapter(getActivity(),ls);
+        arraylist.add(new ChatRVModel("john snow", "she is ma queen", "01:35"));
+        arraylist.add(new ChatRVModel("mad queen","drakarys ...", "06:40"));
+        arraylist.add(new ChatRVModel("dumb and dumber","dany forgot ...", "06:09"));
+
+        adapter=new ChatRVAdapter(getActivity(),arraylist);
         RecyclerView.LayoutManager lm=new LinearLayoutManager(getActivity());
         rv.setLayoutManager(lm);
         rv.setAdapter(adapter);
 
+        // Locate the EditText in listview_main.xml
+        searchView = root.findViewById(R.id.chat_search);
+        searchView.setOnQueryTextListener(this);
 
         return root;
     }
 
-    private void launchSpecificChatActicity() {
-        Intent intent = new Intent(getActivity(), SpecificChatActivity.class);
-        startActivity(intent);
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
     }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String text = newText;
+        adapter.filter(text);
+        return true;
+    }
+
 
     @Override
     public void onDestroyView() {
