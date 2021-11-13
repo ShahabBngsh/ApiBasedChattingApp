@@ -72,6 +72,7 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
             }
         });
 
+        // ******************* WATCHOUT, NASTY BUGS AHEAD  ***********************
         rv = root.findViewById(R.id.contactRV);
         ls = new ArrayList<>();
         adapter = new ContactRVAdapter(getActivity(), ls);
@@ -91,14 +92,18 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
         ls.add(new ContactRVModel("Chad", "6"));
 
 
-        adapter = new ContactRVAdapter(getActivity(), arrayList);
-        RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
-        rv.setLayoutManager(lm);
-        rv.setAdapter(adapter);
+//        adapter = new ContactRVAdapter(getActivity(), arrayList);
+////        RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
+////        rv.setLayoutManager(lm);
+//        rv.setAdapter(adapter);
 
         searchView = root.findViewById(R.id.contacts_search);
         searchView.setOnQueryTextListener(this);
 
+//        adapter = new ContactRVAdapter(getActivity(), ls);
+//        rv.setAdapter(adapter);
+
+        //*********************************************************************
         return root;
     }
 
@@ -168,19 +173,16 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
                                 DatabaseReference profileref = frienduser.child("Profile");
                                 DatabaseReference contact_no_ref = profileref.child("contact_no");
 
-
-
-
-
-
                                 contact_no_ref.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         String contact_no = snapshot.getValue().toString();
 
                                         if (contact_no.equals(phone)){
-//                                            Toast.makeText(getActivity(), name+" "+phone, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), name+" "+phone, Toast.LENGTH_SHORT).show();
                                             ls.add(new ContactRVModel(name, phone));
+//                                            Toast.makeText(getActivity(), ls.toString(), Toast.LENGTH_SHORT).show();
+
                                             adapter.notifyDataSetChanged();
 
                                         }
@@ -210,6 +212,10 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
             }
         }
     }
+
+
+
+
 
     @Override
     public void onDestroyView() {
