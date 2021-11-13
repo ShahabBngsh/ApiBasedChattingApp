@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Contacts;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.shahab.i180731_i180650.ContactRVAdapter;
 import com.shahab.i180731_i180650.ContactRVModel;
+import com.shahab.i180731_i180650.LoginActivity;
+import com.shahab.i180731_i180650.Profile;
 import com.shahab.i180731_i180650.R;
 import com.shahab.i180731_i180650.databinding.FragmentContactsBinding;
 
@@ -71,8 +74,22 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
 
         rv = root.findViewById(R.id.contactRV);
         ls = new ArrayList<>();
+        adapter = new ContactRVAdapter(getActivity(), ls);
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
+        rv.setLayoutManager(lm);
+        rv.setAdapter(adapter);
+
         getContactsList();
         arrayList.addAll(ls);
+
+        ls.add(new ContactRVModel("Shahab", "0"));
+        ls.add(new ContactRVModel("Piyush", "1"));
+        ls.add(new ContactRVModel("Usama", "2"));
+        ls.add(new ContactRVModel("Zain", "3"));
+        ls.add(new ContactRVModel("Jenny", "4"));
+        ls.add(new ContactRVModel("Janet", "5"));
+        ls.add(new ContactRVModel("Chad", "6"));
+
 
         adapter = new ContactRVAdapter(getActivity(), arrayList);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
@@ -140,17 +157,43 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
                 for (String phone :
                         contactPhones) {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference contact_ref = database.getReference();
+                    DatabaseReference contact_ref = database.getReference().child("users");
 
-                    Query query_contact = contact_ref.child("users").orderByChild("contact_no").equalTo(phone);
-                    query_contact.addListenerForSingleValueEvent(new ValueEventListener() {
+                    contact_ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot child: snapshot.getChildren()) {
-                                String key = child.getKey();
-                                Toast.makeText(getContext(), key, Toast.LENGTH_SHORT).show();
-                                Log.d("TAG", key);
+                            for(DataSnapshot data:snapshot.getChildren()){
+                                String frienduserid = data.getKey().toString();
+                                DatabaseReference frienduser = contact_ref.child(frienduserid);
+                                DatabaseReference profileref = frienduser.child("Profile");
+                                DatabaseReference contact_no_ref = profileref.child("contact_no");
 
+
+
+
+
+
+                                contact_no_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        String contact_no = snapshot.getValue().toString();
+
+                                        if (contact_no.equals(phone)){
+//                                            Toast.makeText(getActivity(), name+" "+phone, Toast.LENGTH_SHORT).show();
+                                            ls.add(new ContactRVModel(name, phone));
+                                            adapter.notifyDataSetChanged();
+
+                                        }
+
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Log.d("TAG", phone);
+
+                                    }
+                                });
                             }
                         }
 
@@ -160,7 +203,9 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
                         }
                     });
 
-                    ls.add(new ContactRVModel(name, phone));
+
+
+//                    ls.add(new ContactRVModel(name, phone));
                 }
             }
         }

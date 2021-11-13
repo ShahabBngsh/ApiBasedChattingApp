@@ -82,7 +82,7 @@ public class SignupActivity extends AppCompatActivity {
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference myRef = database.getReference("users/" + userid + "/Profile");
-                                Profile userProfile = new Profile(email, "03331231231", "ad", "i like whatever");
+                                Profile userProfile = new Profile(email, "03335522162", "ad", "i like whatever");
                                 myRef.setValue(userProfile);
                                 //----------------------------------
 
