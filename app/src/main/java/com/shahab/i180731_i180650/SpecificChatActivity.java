@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -99,16 +100,46 @@ public class SpecificChatActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
 
-        messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+//        messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot data:snapshot.getChildren()){
+//                    SpecificChatRVModel message_to_display = data.getValue(SpecificChatRVModel.class);
+//                    ls.add(message_to_display);
+//                    Collections.sort(ls, new SpecificChatComparator());
+//                    adapter.notifyDataSetChanged();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
+        messages_ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                SpecificChatRVModel message_to_display = snapshot.getValue(SpecificChatRVModel.class);
+                ls.add(message_to_display);
+                adapter.notifyDataSetChanged();
+
+            }
 
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data:snapshot.getChildren()){
-                    SpecificChatRVModel message_to_display = data.getValue(SpecificChatRVModel.class);
-                    ls.add(message_to_display);
-                    Collections.sort(ls, new SpecificChatComparator());
-                    adapter.notifyDataSetChanged();
-                }
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
             }
 
             @Override
@@ -116,6 +147,7 @@ public class SpecificChatActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void goBack2Chats() {
@@ -138,8 +170,6 @@ public class SpecificChatActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
         messages_ref.push().setValue(new SpecificChatRVModel(message,time_now, 0));
-        ls.add(new SpecificChatRVModel(message,time_now, 0));
-        adapter.notifyDataSetChanged();
 
         DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
         myRef.push().setValue(new SpecificChatRVModel(message,time_now, 1));
