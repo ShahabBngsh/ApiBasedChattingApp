@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 
 import android.os.Build;
@@ -25,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +36,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class SpecificChatActivity extends AppCompatActivity {
@@ -55,8 +62,20 @@ public class SpecificChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specific_chat);
 
+
+        String friend_id;
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            friend_id = extras.getString("friend_id");
+        }
+        else{
+            friend_id = "NA";
+        }
+
+
         imgbtn_send = findViewById(R.id.specific_send);
-        imgbtn_send.setOnClickListener(view -> sendMessage());
+        imgbtn_send.setOnClickListener(view -> sendMessage(friend_id));
         edittxt_message = findViewById(R.id.specific_typemessage);
 
         btn_back = findViewById(R.id.specific_chat_backarrow);
@@ -64,11 +83,8 @@ public class SpecificChatActivity extends AppCompatActivity {
 
         rv=findViewById(R.id.specific_chatRV);
         ls=new ArrayList<>();
-        ls.add(new SpecificChatRVModel("Hey","i201550", 1));
-        ls.add(new SpecificChatRVModel("Lets meet up at 8pm","i201550", 0));
-        ls.add(new SpecificChatRVModel("LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM","i201550", 1));
 
-        updateMessages();
+        updateMessages(friend_id);
 
 
         adapter=new SpecificChatRVAdapter(SpecificChatActivity.this, ls);
@@ -78,86 +94,22 @@ public class SpecificChatActivity extends AppCompatActivity {
 
     }
 
-    private void updateMessages() {
+    private void updateMessages(String friend_id) {
         SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
         String user_id = sharedPref.getString("userid", "none");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+"userid");
+        DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
 
-        messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data:snapshot.getChildren()){
-                    SpecificChatRVModel message_to_display = data.getValue(SpecificChatRVModel.class);
-                    ls.add(message_to_display);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void goBack2Chats() {
-        finish();
-    }
-
-    //    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void sendMessage() {
-//        Toast.makeText(this, this.edittxt_message.getText().toString(), Toast.LENGTH_SHORT).show();
-        String message = edittxt_message.getText().toString();
-
-        SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
-        String user_id = sharedPref.getString("userid", "none");
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+"userid");
-
-        messages_ref.push().setValue(new SpecificChatRVModel(message,"1", 0));
-
-//        LocalTime lt = LocalTime.now()
-
-
-
-
-
-//        contact_ref.addValueEventListener(new ValueEventListener() {
+//        messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+//
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for(DataSnapshot data:snapshot.getChildren()){
-//                    String frienduserid = data.getKey().toString();
-//                    DatabaseReference frienduser = contact_ref.child(frienduserid);
-//                    DatabaseReference profileref = frienduser.child("Profile");
-//                    DatabaseReference contact_no_ref = profileref.child("contact_no");
-//
-//                    contact_no_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            String contact_no = snapshot.getValue().toString();
-//
-//                            if (contact_no.equals(phone)){
-//                                Toast.makeText(getActivity(), name+" "+phone, Toast.LENGTH_SHORT).show();
-//                                ls.add(new ContactRVModel(name, phone));
-////                                            Toast.makeText(getActivity(), ls.toString(), Toast.LENGTH_SHORT).show();
-//
-//                                adapter.notifyDataSetChanged();
-//
-//                            }
-//
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//                            Log.d("TAG", phone);
-//
-//                        }
-//                    });
+//                for (DataSnapshot data:snapshot.getChildren()){
+//                    SpecificChatRVModel message_to_display = data.getValue(SpecificChatRVModel.class);
+//                    ls.add(message_to_display);
+//                    Collections.sort(ls, new SpecificChatComparator());
+//                    adapter.notifyDataSetChanged();
 //                }
 //            }
 //
@@ -166,9 +118,66 @@ public class SpecificChatActivity extends AppCompatActivity {
 //
 //            }
 //        });
+
+        messages_ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                SpecificChatRVModel message_to_display = snapshot.getValue(SpecificChatRVModel.class);
+                ls.add(message_to_display);
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void goBack2Chats() {
+        finish();
+    }
+
+    //    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void sendMessage(String friend_id) {
+//        Toast.makeText(this, this.edittxt_message.getText().toString(), Toast.LENGTH_SHORT).show();
+        String message = edittxt_message.getText().toString();
+
+        SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
+        String user_id = sharedPref.getString("userid", "none");
+
+
+        Date time_now_in_obj = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+        String time_now = dateFormat.format(time_now_in_obj);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
+        messages_ref.push().setValue(new SpecificChatRVModel(message,time_now, 0));
+
+        DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
+        myRef.push().setValue(new SpecificChatRVModel(message,time_now, 1));
+
+
         Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
 
-        ls.add(new SpecificChatRVModel(message, "9:30", 0));
     }
 
 

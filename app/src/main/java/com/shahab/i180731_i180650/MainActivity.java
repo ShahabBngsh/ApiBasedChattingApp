@@ -12,9 +12,17 @@ import android.widget.TextView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.firebase.database.FirebaseDatabase;
+
+
 public class MainActivity extends AppCompatActivity {
 
     public int counter = 0;
+
+    static {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
