@@ -8,14 +8,20 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 
 public class CallingActivity extends AppCompatActivity {
+    Button btn_videoCall, btn_call_disconnect;
+
     // Fill the App ID of your project generated on Agora Console.
     private String appId = "b6d46e33d71040658795fc6a038133d1";
     // app certificate
@@ -48,11 +54,29 @@ public class CallingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calling);
+
+        btn_videoCall = findViewById(R.id.calling_videocall);
+        btn_videoCall.setOnClickListener(view -> launchVideoCall());
+
+        btn_call_disconnect = findViewById(R.id.calling_disconnect);
+        btn_call_disconnect.setOnClickListener(view -> disconnectCall());
+
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID)) {
             initializeAndJoinChannel();
         }
     }
 
+    private void disconnectCall() {
+        Toast.makeText(this, "Call disconnected", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, NavigationActivity.class);
+        startActivity(intent);
+    }
+
+    private void launchVideoCall() {
+        Toast.makeText(this, "Video call started", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, VideoCallActivity.class);
+        startActivity(intent);
+    }
 
 
     private void initializeAndJoinChannel() {
