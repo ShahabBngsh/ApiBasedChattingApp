@@ -138,6 +138,8 @@ public class SpecificChatActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
         messages_ref.push().setValue(new SpecificChatRVModel(message,time_now, 0));
+        ls.add(new SpecificChatRVModel(message,time_now, 0));
+        adapter.notifyDataSetChanged();
 
         DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
         myRef.push().setValue(new SpecificChatRVModel(message,time_now, 1));
