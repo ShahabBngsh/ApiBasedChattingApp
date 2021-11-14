@@ -59,8 +59,10 @@ public class ContactRVAdapter extends RecyclerView.Adapter<ContactRVAdapter.cont
     }
 
     private void launchSpecificCallActicity() {
+
         Toast.makeText(c, "Calling", Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public int getItemCount() {

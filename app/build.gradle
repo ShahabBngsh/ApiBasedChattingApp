@@ -59,4 +59,8 @@ dependencies {
     //New Android X dependency is this -
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
+
+    // For x.y.z, fill in a specific SDK version number. For example, 3.5.0.
+    // Get the latest version number through the release notes.
+    implementation 'io.agora.rtc:voice-sdk:3.5.0'
 }

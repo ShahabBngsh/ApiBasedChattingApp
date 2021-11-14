@@ -1,5 +1,7 @@
 package com.shahab.i180731_i180650.ui.contacts;
 
+
+
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.database.Cursor;
@@ -56,6 +58,8 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
     SearchView searchView;
     ArrayList<ContactRVModel> arrayList = new ArrayList<ContactRVModel>();
 
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
@@ -91,15 +95,15 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
         ls.add(new ContactRVModel("Janet", "5"));
         ls.add(new ContactRVModel("Chad", "6"));
 
-
+        //FILTERING RESULTS
 //        adapter = new ContactRVAdapter(getActivity(), arrayList);
 ////        RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
 ////        rv.setLayoutManager(lm);
 //        rv.setAdapter(adapter);
-
-        searchView = root.findViewById(R.id.contacts_search);
-        searchView.setOnQueryTextListener(this);
-
+//
+//        searchView = root.findViewById(R.id.contacts_search);
+//        searchView.setOnQueryTextListener(this);
+//
 //        adapter = new ContactRVAdapter(getActivity(), ls);
 //        rv.setAdapter(adapter);
 
@@ -115,6 +119,7 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public boolean onQueryTextChange(String newText) {
         String text = newText;
+//        notifyDataSetChanged();
         adapter.filter(text);
         return true;
     }
