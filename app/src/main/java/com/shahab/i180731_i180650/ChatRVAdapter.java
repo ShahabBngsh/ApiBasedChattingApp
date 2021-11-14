@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +40,7 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.chatViewHo
         holder.name.setText(ls.get(position).getName());
         holder.message.setText(ls.get(position).getMessage());
         holder.time.setText(ls.get(position).getTime());
+        holder.friend_id.setText(ls.get(position).getFriend_id());
 
         rowClickListeners(holder);
     }
@@ -49,19 +49,19 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.chatViewHo
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchSpecificChatActicity();
+                launchSpecificChatActicity(holder.friend_id);
             }
         });
         holder.message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchSpecificChatActicity();
+                launchSpecificChatActicity(holder.friend_id);
             }
         });
         holder.time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchSpecificChatActicity();
+                launchSpecificChatActicity(holder.friend_id);
             }
         });
     }
@@ -77,18 +77,20 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.chatViewHo
     }
 
     public class chatViewHolder extends RecyclerView.ViewHolder {
-        TextView name, message, time;
+        TextView name, message, time, friend_id;
         public chatViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.chat_name);
             message = itemView.findViewById(R.id.chat_message);
             time = itemView.findViewById(R.id.chat_time);
+            friend_id = itemView.findViewById(R.id.chat_friend_id);
         }
     }
 
     //launch signle chat screen
-    private void launchSpecificChatActicity() {
+    private void launchSpecificChatActicity(TextView friend_id) {
         Intent intent = new Intent(c, SpecificChatActivity.class);
+        intent.putExtra("friend_id", friend_id.getText().toString());
         c.startActivity(intent);
     }
 

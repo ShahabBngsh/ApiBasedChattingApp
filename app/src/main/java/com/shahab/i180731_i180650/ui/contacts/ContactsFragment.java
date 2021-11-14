@@ -51,7 +51,7 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
     private ContactsViewModel notificationsViewModel;
     private FragmentContactsBinding binding;
 
-    List<ContactRVModel> ls;
+    List<ContactRVModel> ls = new ArrayList<ContactRVModel>();
     RecyclerView rv;
     ContactRVAdapter adapter;
 
@@ -78,7 +78,6 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
 
         // ******************* WATCHOUT, NASTY BUGS AHEAD  ***********************
         rv = root.findViewById(R.id.contactRV);
-        ls = new ArrayList<>();
         adapter = new ContactRVAdapter(getActivity(), ls);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(lm);
@@ -169,7 +168,7 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference contact_ref = database.getReference().child("users");
 
-                    contact_ref.addValueEventListener(new ValueEventListener() {
+                    contact_ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for(DataSnapshot data:snapshot.getChildren()){
