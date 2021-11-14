@@ -1,6 +1,8 @@
 package com.shahab.i180731_i180650;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.sax.StartElementListener;
 import android.util.Log;
@@ -172,6 +175,11 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("userid", user.getUid());
+                            editor.apply();
 
 //                            //------------------------------- move it to the message screen
 //                            String userid = user.getUid();
