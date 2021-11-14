@@ -101,8 +101,8 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
 ////        rv.setLayoutManager(lm);
 //        rv.setAdapter(adapter);
 //
-//        searchView = root.findViewById(R.id.contacts_search);
-//        searchView.setOnQueryTextListener(this);
+        searchView = root.findViewById(R.id.contacts_search);
+        searchView.setOnQueryTextListener(this);
 //
 //        adapter = new ContactRVAdapter(getActivity(), ls);
 //        rv.setAdapter(adapter);
@@ -181,16 +181,16 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
                                 contact_no_ref.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        String contact_no = snapshot.getValue().toString();
-
-                                        if (contact_no.equals(phone)){
-                                            Toast.makeText(getActivity(), name+" "+phone, Toast.LENGTH_SHORT).show();
-                                            ls.add(new ContactRVModel(name, phone));
-//                                            Toast.makeText(getActivity(), ls.toString(), Toast.LENGTH_SHORT).show();
-
-                                            adapter.notifyDataSetChanged();
-
-                                        }
+//                                        String contact_no = snapshot.getValue().toString();
+//
+//                                        if (contact_no.equals(phone)){
+//                                            Toast.makeText(getActivity(), name+" "+phone, Toast.LENGTH_SHORT).show();
+//                                            ls.add(new ContactRVModel(name, phone));
+////                                            Toast.makeText(getActivity(), ls.toString(), Toast.LENGTH_SHORT).show();
+//
+//                                            adapter.notifyDataSetChanged();
+//
+//                                        }
 
 
                                     }
@@ -212,7 +212,7 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
 
 
 
-//                    ls.add(new ContactRVModel(name, phone));
+                    ls.add(new ContactRVModel(name, phone));
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.shahab.i180731_i180650;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,8 +60,9 @@ public class ContactRVAdapter extends RecyclerView.Adapter<ContactRVAdapter.cont
     }
 
     private void launchSpecificCallActicity() {
-
-        Toast.makeText(c, "Calling", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(c, CallingActivity.class);
+        c.startActivity(intent);
+//        Toast.makeText(c, "Calling", Toast.LENGTH_SHORT).show();
     }
 
 
