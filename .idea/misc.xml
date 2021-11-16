@@ -69,6 +69,7 @@
         <entry key="..\:/Users/Arun-PC/Desktop/PersonalFiles/Sem7/SMD/Ass3/ChatAppFirebase/app/src/main/res/layout/chat_row.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/audio_off_btn.xml" value="0.38229166666666664" />
         <entry key="app/src/main/res/drawable/audio_on_btn.xml" value="0.38229166666666664" />
+        <entry key="app/src/main/res/drawable/greendot.xml" value="0.2125" />
         <entry key="app/src/main/res/drawable/video_disabled.xml" value="0.22083333333333333" />
         <entry key="app/src/main/res/layout/activity_call.xml" value="0.20572916666666666" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />

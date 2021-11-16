@@ -43,10 +43,6 @@
 
 
         </activity>
-        <activity
-            android:name=".MessagesPageActivity"
-            android:exported="true" />
-        <activity
             android:name=".CallingActivity"
             android:exported="true" />
         <activity

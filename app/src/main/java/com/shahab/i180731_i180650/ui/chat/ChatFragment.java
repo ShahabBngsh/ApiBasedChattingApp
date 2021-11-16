@@ -22,19 +22,23 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.annotations.NotNull;
 import com.shahab.i180731_i180650.ChatRVAdapter;
 import com.shahab.i180731_i180650.ChatRVModel;
 import com.shahab.i180731_i180650.R;
-import com.shahab.i180731_i180650.SpecificChatRVModel;
 import com.shahab.i180731_i180650.databinding.FragmentChatBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.widget.SearchView;
+import android.widget.Toast;
+
+import javax.security.auth.callback.Callback;
 
 
 public class ChatFragment extends Fragment implements SearchView.OnQueryTextListener{
+    boolean onlineStatus;
 
     private ChatViewModel dashboardViewModel;
     private FragmentChatBinding binding;
@@ -98,7 +102,7 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
                 for (DataSnapshot data:snapshot.getChildren()){
                     String friend_id = data.getKey();
 
-                    FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+                    FirebaseDatabase ddataSnapshotatabase2 = FirebaseDatabase.getInstance();
                     DatabaseReference profile_name = database.getReference("users/"+friend_id+"/Profile/name");
 
 
@@ -107,7 +111,8 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String friend_name = snapshot.getValue().toString();
-                            arraylist.add(new ChatRVModel(friend_name,"idk", "idk", friend_id));
+                            arraylist.add(new ChatRVModel(friend_name,"idk", "idk", friend_id, isMaFriendOnline(friend_id)));
+                            Toast.makeText(getContext(), String.valueOf(onlineStatus), Toast.LENGTH_SHORT).show();
                             adapter.notifyDataSetChanged();
                         }
 
@@ -138,6 +143,37 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
         String text = newText;
         adapter.filter(text);
         return true;
+    }
+    private boolean isMaFriendOnline(String maFriend_id) {
+
+        this.onlineStatus = false;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users/"+maFriend_id+"/Profile/online_status");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String status = snapshot.getValue().toString();
+                if (status.equals("online")) {
+                    onlineStatus = true;
+                    Toast.makeText(getContext(), status, Toast.LENGTH_SHORT).show();
+                    
+
+                }
+                else {
+                    onlineStatus = false;
+//                    Toast.makeText(getContext(), status, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "something went wrong", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        Toast.makeText(getContext(), String.valueOf(onlineStatus), Toast.LENGTH_SHORT).show();
+        return  onlineStatus;
     }
 
 

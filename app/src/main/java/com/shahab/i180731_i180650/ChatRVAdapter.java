@@ -41,6 +41,10 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.chatViewHo
         holder.message.setText(ls.get(position).getMessage());
         holder.time.setText(ls.get(position).getTime());
         holder.friend_id.setText(ls.get(position).getFriend_id());
+        if (ls.get(position).isOnline)
+            holder.itemView.findViewById(R.id.chat_row_greendot).setVisibility(View.VISIBLE);
+        else
+            holder.itemView.findViewById(R.id.chat_row_greendot).setVisibility(View.GONE);
 
         rowClickListeners(holder);
     }
@@ -87,7 +91,7 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatRVAdapter.chatViewHo
         }
     }
 
-    //launch signle chat screen
+    //launch single chat screen
     private void launchSpecificChatActicity(TextView friend_id) {
         Intent intent = new Intent(c, SpecificChatActivity.class);
         intent.putExtra("friend_id", friend_id.getText().toString());

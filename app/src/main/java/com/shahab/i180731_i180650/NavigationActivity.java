@@ -79,5 +79,37 @@ public class NavigationActivity extends AppCompatActivity implements LifecycleOb
         }
 
     }
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    public void appInStopState() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        if (user != null) {
+            userid = user.getUid();
+            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+            myRef.setValue("offline");
+
+        } else {
+            Log.d("WARNING", "user id is null");
+            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+            myRef.setValue("offline");
+        }
+
+    }
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void appInDestroyState() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        if (user != null) {
+            userid = user.getUid();
+            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+            myRef.setValue("offline");
+
+        } else {
+            Log.d("WARNING", "user id is null");
+            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+            myRef.setValue("offline");
+        }
+
+    }
 
 }

@@ -16,22 +16,37 @@
         android:padding="5dp"
         android:clickable="true"
         >
+        <FrameLayout
+            android:id="@+id/chat_profile_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:id="@+id/chat_portrait"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_baseline_person_white"
+                />
+            <ImageView
+                android:id="@+id/chat_row_greendot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/greendot"
+                />
+        </FrameLayout>
 
-        <ImageView
-            android:id="@+id/chat_portrait"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_baseline_person_white"
-            />
+
 
         <TextView
             android:id="@+id/chat_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_toRightOf="@+id/chat_portrait"
+            android:layout_toRightOf="@+id/chat_profile_picture"
             android:textSize="20dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
