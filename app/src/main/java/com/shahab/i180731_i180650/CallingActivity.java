@@ -160,7 +160,7 @@ public class CallingActivity extends AppCompatActivity {
     private void setupLocalVideoFeed() {
         FrameLayout videoContainer = findViewById(R.id.local_video_view_container);
         SurfaceView videoSurface = RtcEngine.CreateRendererView(getBaseContext());
-        videoSurface.setZOrderMediaOverlay(true);
+        videoSurface.setZOrderMediaOverlay(false);
         videoContainer.addView(videoSurface);
         mRtcEngine.setupLocalVideo(new VideoCanvas(videoSurface, VideoCanvas.RENDER_MODE_FIT, 0));
     }
@@ -252,7 +252,7 @@ public class CallingActivity extends AppCompatActivity {
         FrameLayout container = findViewById(R.id.local_video_view_container);
         container.setVisibility(btn.isSelected() ? View.GONE : View.VISIBLE);
         SurfaceView videoSurface = (SurfaceView) container.getChildAt(0);
-        videoSurface.setZOrderMediaOverlay(!btn.isSelected());
+//        videoSurface.setZOrderMediaOverlay(!btn.isSelected());
         videoSurface.setVisibility(btn.isSelected() ? View.GONE : View.VISIBLE);
     }
 }
