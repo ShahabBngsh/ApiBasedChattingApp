@@ -12,12 +12,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,8 +58,13 @@ public class SpecificChatActivity extends AppCompatActivity {
     Button btn_back;
     String my_name = "l@a.com";
 
+    ImageButton camera;
+
+    private static final int pic_id = 1;
 
     private FirebaseAuth mAuth;
+
+    public String friend_id;
 
 
     @Override
@@ -64,9 +72,6 @@ public class SpecificChatActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specific_chat);
-
-
-        String friend_id;
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -83,6 +88,9 @@ public class SpecificChatActivity extends AppCompatActivity {
 
         btn_back = findViewById(R.id.specific_chat_backarrow);
         btn_back.setOnClickListener(view -> goBack2Chats());
+
+        camera = findViewById(R.id.specific_camera);
+        camera.setOnClickListener(view -> startCamera(friend_id));
 
         rv=findViewById(R.id.specific_chatRV);
         ls=new ArrayList<>();
@@ -239,6 +247,37 @@ public class SpecificChatActivity extends AppCompatActivity {
 
             Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
 
+        }
+
+
+    }
+
+
+    private void startCamera(String friend_id) {
+        Intent StartIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        this.startActivityForResult(StartIntent, pic_id);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == pic_id && resultCode == Activity.RESULT_OK) {
+            SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
+            String user_id = sharedPref.getString("userid", "none");
+
+            if (friend_id.equals("???")) {}
+            else {
+
+
+//                FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                DatabaseReference messages_ref = database.getReference("users/" + user_id + "/messages/" + friend_id);
+//                messages_ref.push().setValue(new SpecificChatRVModel(message, time_now, 0));
+//
+//                DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
+//                myRef.push().setValue(new SpecificChatRVModel(message, time_now, 1));
+            }
         }
 
 
