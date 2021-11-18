@@ -65,6 +65,7 @@ public class SpecificChatActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     public String friend_id;
+    private SpecificChatRVModel to_add;
 
 
     @Override
@@ -264,12 +265,12 @@ public class SpecificChatActivity extends AppCompatActivity {
 
 
         if (requestCode == pic_id && resultCode == Activity.RESULT_OK) {
-            SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
-            String user_id = sharedPref.getString("userid", "none");
-
-            if (friend_id.equals("???")) {}
-            else {
-
+//            SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
+//            String user_id = sharedPref.getString("userid", "none");
+//
+//            if (friend_id.equals("???")) {}
+//            else {
+//
 
 //                FirebaseDatabase database = FirebaseDatabase.getInstance();
 //                DatabaseReference messages_ref = database.getReference("users/" + user_id + "/messages/" + friend_id);
@@ -277,7 +278,21 @@ public class SpecificChatActivity extends AppCompatActivity {
 //
 //                DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
 //                myRef.push().setValue(new SpecificChatRVModel(message, time_now, 1));
-            }
+
+//            ls.add()
+
+
+
+//            }
+
+            to_add = new SpecificChatRVModel("", "",0);
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+            to_add.setPicid(photo);
+            ls.add(to_add);
+            
+            adapter.notifyDataSetChanged();
+
         }
 
 

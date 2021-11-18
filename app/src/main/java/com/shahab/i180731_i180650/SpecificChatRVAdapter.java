@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,11 @@ public class SpecificChatRVAdapter extends RecyclerView.Adapter<SpecificChatRVAd
     public void onBindViewHolder(@NonNull specificChatViewHolder holder, int position) {
         holder.message.setText(ls.get(position).getMessage());
         holder.time.setText(ls.get(position).getTime());
+
+        if (ls.get(position).getPicid() != null) {
+            holder.pic.setImageBitmap(ls.get(position).getPicid());
+        }
+
         holder.message.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -67,10 +73,12 @@ public class SpecificChatRVAdapter extends RecyclerView.Adapter<SpecificChatRVAd
 
     public class specificChatViewHolder extends RecyclerView.ViewHolder {
         TextView message, time;
+        ImageView pic;
         public specificChatViewHolder(@NonNull View itemView) {
             super(itemView);
             message =itemView.findViewById(R.id.specific_chat_message);
             time =itemView.findViewById(R.id.specific_chat_time);
+            pic = itemView.findViewById(R.id.chat_pic);
         }
     }
 

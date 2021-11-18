@@ -1,5 +1,7 @@
 package com.shahab.i180731_i180650;
 
+import android.graphics.Bitmap;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -7,6 +9,8 @@ public class SpecificChatRVModel {
     String message, time;
     int viewType;
     int chattype;
+
+    Bitmap picid = null;
 
     public SpecificChatRVModel(){
 
@@ -50,5 +54,13 @@ public class SpecificChatRVModel {
 
     public void setChattype(int chattype) {
         this.chattype = chattype;
+    }
+
+    public Bitmap getPicid() {
+        return picid;
+    }
+
+    public void setPicid(Bitmap picid) {
+        this.picid = picid;
     }
 }
