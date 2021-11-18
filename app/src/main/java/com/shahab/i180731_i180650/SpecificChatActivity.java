@@ -40,6 +40,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class SpecificChatActivity extends AppCompatActivity {
 
@@ -52,6 +53,8 @@ public class SpecificChatActivity extends AppCompatActivity {
     EditText edittxt_message;
 
     Button btn_back;
+    String my_name = "l@a.com";
+
 
     private FirebaseAuth mAuth;
 
@@ -99,55 +102,101 @@ public class SpecificChatActivity extends AppCompatActivity {
         String user_id = sharedPref.getString("userid", "none");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
+        if (friend_id.equals("???")) {
+            DatabaseReference messages_ref = database.getReference("groupchat/"+friend_id+"/messages");
+            DatabaseReference my_ref = database.getReference("users/"+user_id+"/Profile/name");
 
-//        messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot data:snapshot.getChildren()){
-//                    SpecificChatRVModel message_to_display = data.getValue(SpecificChatRVModel.class);
-//                    ls.add(message_to_display);
-//                    Collections.sort(ls, new SpecificChatComparator());
-//                    adapter.notifyDataSetChanged();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+            messages_ref.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-        messages_ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                SpecificChatRVModel message_to_display = snapshot.getValue(SpecificChatRVModel.class);
-                ls.add(message_to_display);
-                adapter.notifyDataSetChanged();
 
-            }
+                    my_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                            my_name = snapshot2.getValue(String.class);
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            String chat_name = snapshot.child("name").getValue().toString();
 
-            }
+                            if (chat_name.equals(my_name)){
+                                SpecificChatRVModel message_to_display = new SpecificChatRVModel(snapshot.child("message").getValue().toString(),snapshot.child("time").getValue().toString(), 0);
+                                ls.add(message_to_display);
+                            }
+                            else {
+                                SpecificChatRVModel message_to_display = new SpecificChatRVModel(snapshot.child("message").getValue().toString(),snapshot.child("time").getValue().toString(), 1);
+                                ls.add(message_to_display);
+                            }
+                            adapter.notifyDataSetChanged();
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                        }
 
-            }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        }
+                    });
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                }
 
-            }
-        });
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        else {
+
+
+            DatabaseReference messages_ref = database.getReference("users/" + user_id + "/messages/" + friend_id);
+
+            messages_ref.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    SpecificChatRVModel message_to_display = snapshot.getValue(SpecificChatRVModel.class);
+                    ls.add(message_to_display);
+                    adapter.notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+        }
 
     }
 
@@ -169,14 +218,29 @@ public class SpecificChatActivity extends AppCompatActivity {
         String time_now = dateFormat.format(time_now_in_obj);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
-        messages_ref.push().setValue(new SpecificChatRVModel(message,time_now, 0));
 
-        DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
-        myRef.push().setValue(new SpecificChatRVModel(message,time_now, 1));
+        if (friend_id.equals("???")){
+            DatabaseReference messages_ref = database.getReference("groupchat/"+friend_id+"/messages");
+            messages_ref.push().setValue(new GroupChat(my_name, my_name+": "+message, time_now));
+
+            Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
+        }
+
+        else {
 
 
-        Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
+
+            DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
+            messages_ref.push().setValue(new SpecificChatRVModel(message,time_now, 0));
+
+            DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
+            myRef.push().setValue(new SpecificChatRVModel(message,time_now, 1));
+
+
+            Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
+
+        }
+
 
     }
 
