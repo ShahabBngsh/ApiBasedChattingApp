@@ -23,7 +23,8 @@ import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 
-
+//https://docs.agora.io/en/Video/start_call_android
+//https://medium.com/agora-io/1-to-1-video-chat-app-on-android-using-agora-io-3c2fe6c42fb4
 public class GroupCallActivity extends AppCompatActivity {
 
     // Fill the App ID of your project generated on Agora Console.

@@ -29,6 +29,9 @@ import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 
+
+//https://docs.agora.io/en/Video/start_call_android
+//https://medium.com/agora-io/1-to-1-video-chat-app-on-android-using-agora-io-3c2fe6c42fb4
 public class CallingActivity extends AppCompatActivity {
     Button btn_videoCall, btn_call_disconnect, btn_mic;
 
