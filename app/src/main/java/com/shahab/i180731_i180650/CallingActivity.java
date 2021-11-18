@@ -39,7 +39,7 @@ public class CallingActivity extends AppCompatActivity {
     // Fill the channel name.
     private String channelName = "BeyondTheWall";
     // Fill the temp token generated on Agora Console.
-    private String token = "006b6d46e33d71040658795fc6a038133d1IADIZaENSBzqH5SzdehzszzyVhXsGsPd12eay9XdOGMLPfyZu/cAAAAAEAAOH3sdK5iUYQEAAQAqmJRh";
+    private String token = "006b6d46e33d71040658795fc6a038133d1IAA0UJDbMvt/gr8vKv4f/lxscXizb5TGCgLiHylT81ktCPyZu/cAAAAAEAAi+yLhEz6XYQEAAQATPpdh";
     private RtcEngine mRtcEngine;
 
     // Handle SDK Events
