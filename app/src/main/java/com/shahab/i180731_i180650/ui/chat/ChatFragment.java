@@ -185,38 +185,6 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
         adapter.filter(text);
         return true;
     }
-//    private boolean isMaFriendOnline(String maFriend_id) {
-//
-//        this.onlineStatus = false;
-//
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("users/"+maFriend_id+"/Profile/online_status");
-//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                String status = snapshot.getValue().toString();
-//                if (status.equals("online")) {
-//                    onlineStatus = true;
-//                    Toast.makeText(getContext(), status, Toast.LENGTH_SHORT).show();
-//                    ls.
-//
-//
-//                }
-//                else {
-//                    onlineStatus = false;
-////                    Toast.makeText(getContext(), status, Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Toast.makeText(getContext(), "something went wrong", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-////        Toast.makeText(getContext(), String.valueOf(onlineStatus), Toast.LENGTH_SHORT).show();
-//        return  onlineStatus;
-//    }
 
 
     @Override

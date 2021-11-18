@@ -79,6 +79,7 @@
         <entry key="app/src/main/res/drawable/greendot.xml" value="0.2125" />
         <entry key="app/src/main/res/drawable/video_disabled.xml" value="0.22083333333333333" />
         <entry key="app/src/main/res/layout/activity_call.xml" value="0.20572916666666666" />
+        <entry key="app/src/main/res/layout/activity_group_call.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.365036231884058" />

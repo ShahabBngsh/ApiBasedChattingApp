@@ -40,10 +40,12 @@ public class SpecificChatRVAdapter extends RecyclerView.Adapter<SpecificChatRVAd
     public void onBindViewHolder(@NonNull specificChatViewHolder holder, int position) {
         holder.message.setText(ls.get(position).getMessage());
         holder.time.setText(ls.get(position).getTime());
-        holder.message.setOnClickListener(new View.OnClickListener() {
+        holder.message.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public boolean onLongClick(View v) {
+                ls.remove(holder.getAdapterPosition());
+                notifyDataSetChanged();
+                return true;
             }
         });
     }

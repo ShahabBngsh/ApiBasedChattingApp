@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,8 @@ public class CallRVAdapter extends RecyclerView.Adapter<CallRVAdapter.chatViewHo
     List<CallRVModel> ls;
     ArrayList<CallRVModel> lsCopy;
 
+    ImageView img_groupcall;
+
     public CallRVAdapter(Context c, List<CallRVModel> ls) {
         this.c = c;
         this.ls = ls;
@@ -33,6 +36,7 @@ public class CallRVAdapter extends RecyclerView.Adapter<CallRVAdapter.chatViewHo
     public chatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View row= LayoutInflater.from(c).inflate(R.layout.call_row, parent,false);
         return new chatViewHolder(row);
+
     }
 
     @Override

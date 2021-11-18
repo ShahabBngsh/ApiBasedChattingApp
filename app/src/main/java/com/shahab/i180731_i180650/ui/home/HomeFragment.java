@@ -1,9 +1,11 @@
 package com.shahab.i180731_i180650.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
+
+    ImageView img_groupcall;
 
     List<CallRVModel> ls;
     RecyclerView rv;
@@ -75,7 +79,15 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         searchView = root.findViewById(R.id.home_search);
         searchView.setOnQueryTextListener(this);
 
+        img_groupcall = root.findViewById(R.id.group_call);
+        img_groupcall.setOnClickListener(view -> launchGroupCall());
+
         return root;
+    }
+
+    private void launchGroupCall() {
+        Intent intent  = new Intent(getActivity(), GroupCallActivity.class);
+        startActivity(intent);
     }
 
     @Override
