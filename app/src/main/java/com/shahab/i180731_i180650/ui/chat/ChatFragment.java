@@ -131,7 +131,7 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
                             if (onlineStatus.equals("online")) {
                                 isOnline = true;
                             }
-                            arraylist.add(new ChatRVModel(friend_name,"idk", "idk", friend_id, isOnline));
+                            arraylist.add(new ChatRVModel(friend_name,"idk", onlineStatus, friend_id, isOnline));
                             adapter.notifyDataSetChanged();
                         }
 
