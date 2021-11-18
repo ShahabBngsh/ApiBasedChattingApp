@@ -91,6 +91,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/specific_camera"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/specific_camera" />
+
 
     <FrameLayout
         android:layout_weight="0.1"
@@ -99,12 +106,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
         android:background="@drawable/messagebar">
-        <ImageButton
-            android:id="@+id/specific_emoji"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_baseline_emoji_white"/>
+
         <EditText
             android:id="@+id/specific_typemessage"
             android:layout_width="match_parent"
