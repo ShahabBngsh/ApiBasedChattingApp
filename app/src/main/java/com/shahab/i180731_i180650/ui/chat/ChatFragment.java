@@ -1,12 +1,14 @@
 package com.shahab.i180731_i180650.ui.chat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
 import com.shahab.i180731_i180650.ChatRVAdapter;
 import com.shahab.i180731_i180650.ChatRVModel;
+import com.shahab.i180731_i180650.NewChatActivity;
 import com.shahab.i180731_i180650.R;
 import com.shahab.i180731_i180650.databinding.FragmentChatBinding;
 
@@ -49,6 +52,8 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
 
     SearchView searchView;
     ArrayList<ChatRVModel> arraylist = new ArrayList<ChatRVModel>();
+
+    ImageView add_chat;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -79,6 +84,16 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
         rv.setAdapter(adapter);
 
         getMessages();
+
+
+        add_chat = root.findViewById(R.id.add_chat);
+        add_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newChatIntent = new Intent(getActivity(), NewChatActivity.class);
+                startActivity(newChatIntent);
+            }
+        });
 
 
         // Locate the EditText in listview_main.xml
@@ -112,7 +127,6 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String friend_name = snapshot.getValue().toString();
                             arraylist.add(new ChatRVModel(friend_name,"idk", "idk", friend_id, isMaFriendOnline(friend_id)));
-                            Toast.makeText(getContext(), String.valueOf(onlineStatus), Toast.LENGTH_SHORT).show();
                             adapter.notifyDataSetChanged();
                         }
 
@@ -131,6 +145,28 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
 
             }
         });
+
+
+        DatabaseReference group_messages_ref = database.getReference("groupchat");
+
+        group_messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data:snapshot.getChildren()){
+                    String group_name = data.child("groupname").getValue(String.class);
+                    arraylist.add(new ChatRVModel(group_name,"Decide", "7:01", data.getKey(), false));
+                    adapter.notifyDataSetChanged();
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override

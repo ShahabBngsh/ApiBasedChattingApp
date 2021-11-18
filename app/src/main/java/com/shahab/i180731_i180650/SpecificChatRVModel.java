@@ -6,6 +6,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SpecificChatRVModel {
     String message, time;
     int viewType;
+    int chattype;
 
     public SpecificChatRVModel(){
 
@@ -16,6 +17,7 @@ public class SpecificChatRVModel {
         this.message = message;
         this.time = time;
         this.viewType = viewType;
+        this.chattype = 0;
     }
 
     public String getMessage() {
@@ -36,5 +38,17 @@ public class SpecificChatRVModel {
 
     public int getViewType() {
         return viewType;
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
+    public int getChattype() {
+        return chattype;
+    }
+
+    public void setChattype(int chattype) {
+        this.chattype = chattype;
     }
 }
