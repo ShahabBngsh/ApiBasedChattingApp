@@ -23,6 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.shahab.i180731_i180650.databinding.NavigationBinding;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class NavigationActivity extends AppCompatActivity implements LifecycleObserver {
     public static String userid;
     private NavigationBinding binding;
@@ -65,49 +70,64 @@ public class NavigationActivity extends AppCompatActivity implements LifecycleOb
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     public void appInPauseState() {
+
+        Date time_now_in_obj = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+        String time_now = dateFormat.format(time_now_in_obj);
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         if (user != null) {
             userid = user.getUid();
             DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue("offline");
+            myRef.setValue(time_now);
 
         } else {
             Log.d("WARNING", "user id is null");
             DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue("offline");
+            myRef.setValue(time_now);
         }
 
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void appInStopState() {
+
+        Date time_now_in_obj = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+        String time_now = dateFormat.format(time_now_in_obj);
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         if (user != null) {
             userid = user.getUid();
             DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue("offline");
+            myRef.setValue(time_now);
 
         } else {
             Log.d("WARNING", "user id is null");
             DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue("offline");
+            myRef.setValue(time_now);
         }
 
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void appInDestroyState() {
+        Date time_now_in_obj = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+        String time_now = dateFormat.format(time_now_in_obj);
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         if (user != null) {
             userid = user.getUid();
             DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue("offline");
+            myRef.setValue(time_now);
 
         } else {
             Log.d("WARNING", "user id is null");
             DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue("offline");
+            myRef.setValue(time_now);
         }
 
     }
