@@ -53,6 +53,15 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/group_call"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_group_24"
+        android:layout_gravity="end"
+        android:layout_marginRight="20dp"
+        />
+
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"

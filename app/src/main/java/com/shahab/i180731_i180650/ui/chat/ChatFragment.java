@@ -118,15 +118,20 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
                     String friend_id = data.getKey();
 
                     FirebaseDatabase ddataSnapshotatabase2 = FirebaseDatabase.getInstance();
-                    DatabaseReference profile_name = database.getReference("users/"+friend_id+"/Profile/name");
+                    DatabaseReference profile_name = database.getReference("users/"+friend_id+"/Profile");
 
 
 
                     profile_name.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String friend_name = snapshot.getValue().toString();
-                            arraylist.add(new ChatRVModel(friend_name,"idk", "idk", friend_id, isMaFriendOnline(friend_id)));
+                            String friend_name = snapshot.child("name").getValue().toString();
+                            String onlineStatus = snapshot.child("online_status").getValue().toString();
+                            boolean isOnline = false;
+                            if (onlineStatus.equals("online")) {
+                                isOnline = true;
+                            }
+                            arraylist.add(new ChatRVModel(friend_name,"idk", "idk", friend_id, isOnline));
                             adapter.notifyDataSetChanged();
                         }
 
@@ -180,37 +185,38 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
         adapter.filter(text);
         return true;
     }
-    private boolean isMaFriendOnline(String maFriend_id) {
-
-        this.onlineStatus = false;
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("users/"+maFriend_id+"/Profile/online_status");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String status = snapshot.getValue().toString();
-                if (status.equals("online")) {
-                    onlineStatus = true;
-                    Toast.makeText(getContext(), status, Toast.LENGTH_SHORT).show();
-                    
-
-                }
-                else {
-                    onlineStatus = false;
+//    private boolean isMaFriendOnline(String maFriend_id) {
+//
+//        this.onlineStatus = false;
+//
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("users/"+maFriend_id+"/Profile/online_status");
+//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                String status = snapshot.getValue().toString();
+//                if (status.equals("online")) {
+//                    onlineStatus = true;
 //                    Toast.makeText(getContext(), status, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "something went wrong", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-//        Toast.makeText(getContext(), String.valueOf(onlineStatus), Toast.LENGTH_SHORT).show();
-        return  onlineStatus;
-    }
+//                    ls.
+//
+//
+//                }
+//                else {
+//                    onlineStatus = false;
+////                    Toast.makeText(getContext(), status, Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(getContext(), "something went wrong", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+////        Toast.makeText(getContext(), String.valueOf(onlineStatus), Toast.LENGTH_SHORT).show();
+//        return  onlineStatus;
+//    }
 
 
     @Override
