@@ -121,6 +121,8 @@ public class CallingActivity extends AppCompatActivity {
             initAgoraEngine();
         }
         onjoinChannelClicked(new View(this));
+        onVideoMuteClicked(new ImageView(this));
+
 //        onVideoMuteClicked(new View(this));
 //        onAudioMuteClicked(new View(this));
 ////        btn_mic = findViewById(R.id.calling_mic);
