@@ -3,7 +3,10 @@ package com.shahab.i180731_i180650.ui.camera;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -122,6 +125,17 @@ public class CameraFragment extends Fragment {
             } else {
                 Toast.makeText(getContext(), "You haven't picked Image",
                         Toast.LENGTH_LONG).show();
+                String tittle="Image";
+                String subject="Image not selected";
+                String body="image not selected";
+
+                NotificationManager notif=(NotificationManager)getContext().getSystemService((Context.NOTIFICATION_SERVICE));
+                Notification notify=new Notification.Builder
+                        (getContext().getApplicationContext()).setContentTitle(tittle).setContentText(body).
+                        setContentTitle(subject).setSmallIcon(R.drawable.notification_icon).build();
+
+                notify.flags |= Notification.FLAG_AUTO_CANCEL;
+                notif.notify(0, notify);
             }
         } catch (Exception e) {
             Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG)

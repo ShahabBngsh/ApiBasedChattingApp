@@ -1,5 +1,7 @@
 package com.shahab.i180731_i180650;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -60,6 +62,18 @@ public class ContactRVAdapter extends RecyclerView.Adapter<ContactRVAdapter.cont
     }
 
     private void launchSpecificCallActicity() {
+        String tittle="CALLING";
+        String subject="calling someone";
+        String body="calling notification";
+
+        NotificationManager notif=(NotificationManager) c.getSystemService((Context.NOTIFICATION_SERVICE));
+        Notification notify=new Notification.Builder
+                (c.getApplicationContext()).setContentTitle(tittle).setContentText(body).
+                setContentTitle(subject).setSmallIcon(R.drawable.notification_icon).build();
+
+        notify.flags |= Notification.FLAG_AUTO_CANCEL;
+        notif.notify(0, notify);
+
         Intent intent = new Intent(c, CallingActivity.class);
         c.startActivity(intent);
 //        Toast.makeText(c, "Calling", Toast.LENGTH_SHORT).show();
