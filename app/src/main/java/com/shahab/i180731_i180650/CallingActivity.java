@@ -149,7 +149,7 @@ public class CallingActivity extends AppCompatActivity {
     private void setupSession() {
         mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_COMMUNICATION);
 
-//        mRtcEngine.enableVideo();
+        mRtcEngine.enableVideo();
 
         mRtcEngine.setVideoEncoderConfiguration(new VideoEncoderConfiguration(VideoEncoderConfiguration.VD_640x360, VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_30,
                 VideoEncoderConfiguration.STANDARD_BITRATE,
@@ -167,6 +167,7 @@ public class CallingActivity extends AppCompatActivity {
         FrameLayout videoContainer = findViewById(R.id.remote_video_view_container);
         SurfaceView videoSurface = RtcEngine.CreateRendererView(getBaseContext());
         videoContainer.addView(videoSurface);
+        videoSurface.setZOrderMediaOverlay(true);
         mRtcEngine.setupRemoteVideo(new VideoCanvas(videoSurface, VideoCanvas.RENDER_MODE_FIT, uid));
         mRtcEngine.setRemoteSubscribeFallbackOption(io.agora.rtc.Constants.STREAM_FALLBACK_OPTION_AUDIO_ONLY);
     }
@@ -182,6 +183,7 @@ public class CallingActivity extends AppCompatActivity {
             ImageView noCamera = new ImageView(this);
             noCamera.setImageResource(R.drawable.ic_baseline_videocam_off_24);
             videoContainer.addView(noCamera);
+            videoSurface.setZOrderMediaOverlay(true);
         } else {
             ImageView noCamera = (ImageView) videoContainer.getChildAt(1);
             if(noCamera != null) {
@@ -202,10 +204,6 @@ public class CallingActivity extends AppCompatActivity {
     public void onjoinChannelClicked(View view) {
         mRtcEngine.joinChannel(token, channelName, "", 0);
         setupLocalVideoFeed();
-////        findViewById(R.id.joinBtn).setVisibility(View.GONE); // set the join button hidden
-//        findViewById(R.id.calling_mic).setVisibility(View.VISIBLE); // set the audio button hidden
-//        findViewById(R.id.calling_disconnect).setVisibility(View.VISIBLE); // set the leave button hidden
-//        findViewById(R.id.calling_videocall).setVisibility(View.VISIBLE); // set the video button hidden
     }
     public void onLeaveChannelClicked(View view) {
         leaveChannel();
@@ -238,12 +236,10 @@ public class CallingActivity extends AppCompatActivity {
     public void onVideoMuteClicked(View view) {
         ImageView btn = (ImageView) view;
         if (btn.isSelected()) {
-            mRtcEngine.enableVideo();
             btn.setSelected(false);
             btn.setImageResource(R.drawable.ic_baseline_videocam_24);
             Toast.makeText(this, "camera turned on", Toast.LENGTH_SHORT).show();
         } else {
-            mRtcEngine.disableVideo();
             btn.setSelected(true);
             btn.setImageResource(R.drawable.ic_baseline_videocam_off_24);
             Toast.makeText(this, "camera turned off", Toast.LENGTH_SHORT).show();
