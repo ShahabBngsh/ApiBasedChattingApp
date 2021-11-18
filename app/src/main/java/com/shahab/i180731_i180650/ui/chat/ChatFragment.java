@@ -208,7 +208,7 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
 
             }
         });
-        Toast.makeText(getContext(), String.valueOf(onlineStatus), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), String.valueOf(onlineStatus), Toast.LENGTH_SHORT).show();
         return  onlineStatus;
     }
 
