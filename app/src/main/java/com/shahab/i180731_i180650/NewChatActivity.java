@@ -13,6 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,31 +41,25 @@ public class NewChatActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference new_ref = database.getReference("users");
 
-        new_ref.addChildEventListener(new ChildEventListener() {
+        new_ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data1: snapshot.getChildren()){
-                    DataSnapshot profile = data1.child("Profile");
+                    DatabaseReference name_ref = database.getReference("users/" + data1.getKey() + "/Profile/name");
+                    name_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String new_name = snapshot.getValue().toString();
+                            ls.add(new NewChatRVModel(new_name, data1.getKey()));
+                            adapter.notifyDataSetChanged();
+                        }
 
-                    String new_name = profile.child("name").getValue().toString();
-                    String user_id = data1.getKey();
-                    ls.add(new NewChatRVModel(new_name, user_id));
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
             }
 
             @Override
