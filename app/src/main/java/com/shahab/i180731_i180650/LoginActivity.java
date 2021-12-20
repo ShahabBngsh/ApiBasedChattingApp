@@ -157,11 +157,13 @@ public class LoginActivity extends AppCompatActivity {
     private void launchMessagesPageActivity() {
         String login_email_check = login_email.getText().toString();
         String login_password_check = login_password.getText().toString();
-        // Instantiate the RequestQueue.
+
+        final TextView textView = (TextView) findViewById(R.id.login_email);
+// Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://192.168.100.108/smd21/getLogin.php";
 
-        // Request a string response from the provided URL.
+// Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override

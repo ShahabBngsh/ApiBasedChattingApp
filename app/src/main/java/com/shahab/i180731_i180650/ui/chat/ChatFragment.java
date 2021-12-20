@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,23 +19,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.shahab.i180731_i180650.ChatRVAdapter;
 import com.shahab.i180731_i180650.ChatRVModel;
-import com.shahab.i180731_i180650.LoginActivity;
-import com.shahab.i180731_i180650.NavigationActivity;
 import com.shahab.i180731_i180650.NewChatActivity;
 import com.shahab.i180731_i180650.R;
 import com.shahab.i180731_i180650.databinding.FragmentChatBinding;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -111,45 +101,70 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
         SharedPreferences sharedPref = getActivity().getSharedPreferences("app_values", Context.MODE_PRIVATE);
         String user_id = sharedPref.getString("userid", "none");
 
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url ="http://192.168.100.108/smd21/getContacts.php";
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        String user_id, name, onlinestatus, desc, lastseen;
-                        StringTokenizer st = new StringTokenizer(response,",");
-                        while (st.hasMoreTokens()) {
-                            user_id = st.nextToken();
-                            st.hasMoreTokens();
-                            name = st.nextToken();
-                            st.hasMoreTokens();
-                            desc = st.nextToken();
-                            st.hasMoreTokens();
-                            lastseen = st.nextToken();
-                            st.hasMoreTokens();
-                            onlinestatus = st.nextToken();
-                            Boolean isOnline = Boolean.getBoolean(onlinestatus);
-
-                            arraylist.add(new ChatRVModel(name, desc, lastseen, user_id, isOnline));
-                            adapter.notifyDataSetChanged();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                Log.e("ERROR", error.toString());
-            }
-        });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages");
+//
+//        messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot data:snapshot.getChildren()){
+//                    String friend_id = data.getKey();
+//
+//                    FirebaseDatabase ddataSnapshotatabase2 = FirebaseDatabase.getInstance();
+//                    DatabaseReference profile_name = database.getReference("users/"+friend_id+"/Profile");
+//
+//
+//
+//                    profile_name.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            String friend_name = snapshot.child("name").getValue().toString();
+//                            String onlineStatus = snapshot.child("online_status").getValue().toString();
+//                            boolean isOnline = false;
+//                            if (onlineStatus.equals("online")) {
+//                                isOnline = true;
+//                            }
+//                            arraylist.add(new ChatRVModel(friend_name,"idk", onlineStatus, friend_id, isOnline));
+//                            adapter.notifyDataSetChanged();
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+//
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//
+//        DatabaseReference group_messages_ref = database.getReference("groupchat");
+//
+//        group_messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot data:snapshot.getChildren()){
+//                    String group_name = data.child("groupname").getValue(String.class);
+//                    arraylist.add(new ChatRVModel(group_name,"Decide", "7:01", data.getKey(), false));
+//                    adapter.notifyDataSetChanged();
+//
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
 
