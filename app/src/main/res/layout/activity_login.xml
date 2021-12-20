@@ -60,7 +60,7 @@
         android:inputType="textWebPassword"
         android:backgroundTint="@color/gray"
         android:hint="Password"
-        android:text="12345678"
+        android:text="1234"
         android:textSize="14sp"
         android:textColor="@color/white"
         android:textColorHint="@color/gray"/>

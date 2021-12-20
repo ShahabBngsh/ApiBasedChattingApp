@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.internal.ActivityLifecycleObserver;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +16,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.shahab.i180731_i180650.databinding.NavigationBinding;
 
 import java.text.DateFormat;
@@ -54,18 +49,18 @@ public class NavigationActivity extends AppCompatActivity implements LifecycleOb
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void appInResumeState() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        if (user != null) {
-            userid = user.getUid();
-            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue("online");
-
-        } else {
-            Log.d("WARNING", "user id is null");
-            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue("online");
-        }
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        if (user != null) {
+//            userid = user.getUid();
+//            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+//            myRef.setValue("online");
+//
+//        } else {
+//            Log.d("WARNING", "user id is null");
+//            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+//            myRef.setValue("online");
+//        }
 
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
@@ -75,19 +70,19 @@ public class NavigationActivity extends AppCompatActivity implements LifecycleOb
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
         String time_now = dateFormat.format(time_now_in_obj);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        if (user != null) {
-            userid = user.getUid();
-            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue(time_now);
-
-        } else {
-            Log.d("WARNING", "user id is null");
-            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue(time_now);
-        }
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+//        if (user != null) {
+//            userid = user.getUid();
+//            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+//            myRef.setValue(time_now);
+//
+//        } else {
+//            Log.d("WARNING", "user id is null");
+//            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+//            myRef.setValue(time_now);
+//        }
 
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
@@ -97,18 +92,18 @@ public class NavigationActivity extends AppCompatActivity implements LifecycleOb
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
         String time_now = dateFormat.format(time_now_in_obj);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        if (user != null) {
-            userid = user.getUid();
-            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue(time_now);
-
-        } else {
-            Log.d("WARNING", "user id is null");
-            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue(time_now);
-        }
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        if (user != null) {
+//            userid = user.getUid();
+//            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+//            myRef.setValue(time_now);
+//
+//        } else {
+//            Log.d("WARNING", "user id is null");
+//            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+//            myRef.setValue(time_now);
+//        }
 
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -117,18 +112,18 @@ public class NavigationActivity extends AppCompatActivity implements LifecycleOb
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
         String time_now = dateFormat.format(time_now_in_obj);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        if (user != null) {
-            userid = user.getUid();
-            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue(time_now);
-
-        } else {
-            Log.d("WARNING", "user id is null");
-            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
-            myRef.setValue(time_now);
-        }
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        if (user != null) {
+//            userid = user.getUid();
+//            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+//            myRef.setValue(time_now);
+//
+//        } else {
+//            Log.d("WARNING", "user id is null");
+//            DatabaseReference myRef = database.getReference("users/" + userid + "/Profile/online_status");
+//            myRef.setValue(time_now);
+//        }
 
     }
 

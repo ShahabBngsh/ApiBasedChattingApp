@@ -28,17 +28,18 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 public class LoginActivity extends AppCompatActivity {
     Button btn_login;
@@ -53,8 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView txtView_signup;
 
     EditText login_email;
-    EditText login_password;
-    private FirebaseAuth mAuth;
+    EditText login_password;;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,9 +68,6 @@ public class LoginActivity extends AppCompatActivity {
 //                .requestEmail()
 //                .build();
 
-        // ...
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
 
         txtView_signup = findViewById(R.id.login_register);
         txtView_signup.setOnClickListener(view -> launchSignupActivity());
@@ -141,19 +139,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent navigationIntent = new Intent(LoginActivity.this, NavigationActivity.class);
-            startActivity(navigationIntent);
-        }
+//        Intent navigationIntent = new Intent(LoginActivity.this, NavigationActivity.class);
+//        startActivity(navigationIntent);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
-        FirebaseAuth.getInstance().signOut();
 
     }
 
@@ -163,37 +155,50 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     private void launchMessagesPageActivity() {
-
         String login_email_check = login_email.getText().toString();
         String login_password_check = login_password.getText().toString();
 
-        mAuth.signInWithEmailAndPassword(login_email_check, login_password_check)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        final TextView textView = (TextView) findViewById(R.id.login_email);
+// Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="http://192.168.100.108/smd21/getLogin.php";
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-
-                            SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("userid", user.getUid());
-                            editor.apply();
-
-                            Intent navigationIntent = new Intent(LoginActivity.this, NavigationActivity.class);
-                            startActivity(navigationIntent);
-
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
+                    public void onResponse(String response) {
+                        String email, pass;
+                        Boolean matches = false;
+                        StringTokenizer st = new StringTokenizer(response,",");
+                        while (st.hasMoreTokens()) {
+                            email = st.nextToken();
+                            st.hasMoreTokens();
+                            pass = st.nextToken();
+                            if (email.equals(login_email_check) && pass.equals(login_password_check)) {
+                                matches = true;
+                                Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+                                startActivity(intent);
+                            }
                         }
+                        if (matches == false) {
+                            Toast.makeText(LoginActivity.this, "WRONG CREDENTIALS", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
-                });
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("ERROR", error.toString());
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+
+
 
     }
 

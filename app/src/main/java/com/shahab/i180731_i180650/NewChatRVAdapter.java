@@ -13,8 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -58,17 +56,17 @@ public class NewChatRVAdapter extends RecyclerView.Adapter<NewChatRVAdapter.newC
                 SharedPreferences shr = c.getSharedPreferences("app_values",Context.MODE_PRIVATE);
                 String user_id = shr.getString("userid","none");
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-                Date time_now_in_obj = Calendar.getInstance().getTime();
-                DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
-                String time_now = dateFormat.format(time_now_in_obj);
-
-                DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
-                messages_ref.push().setValue(new SpecificChatRVModel("You can now enter messages below",time_now, 1));
-
-                DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
-                myRef.push().setValue(new SpecificChatRVModel("You can now enter messages below",time_now, 1));
+//                FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+//                Date time_now_in_obj = Calendar.getInstance().getTime();
+//                DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+//                String time_now = dateFormat.format(time_now_in_obj);
+//
+//                DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
+//                messages_ref.push().setValue(new SpecificChatRVModel("You can now enter messages below",time_now, 1));
+//
+//                DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
+//                myRef.push().setValue(new SpecificChatRVModel("You can now enter messages below",time_now, 1));
 
                 thisActivity.finish();
 

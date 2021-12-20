@@ -19,12 +19,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.annotations.NotNull;
 import com.shahab.i180731_i180650.ChatRVAdapter;
 import com.shahab.i180731_i180650.ChatRVModel;
 import com.shahab.i180731_i180650.NewChatActivity;
@@ -107,70 +101,70 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
         SharedPreferences sharedPref = getActivity().getSharedPreferences("app_values", Context.MODE_PRIVATE);
         String user_id = sharedPref.getString("userid", "none");
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages");
-
-        messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data:snapshot.getChildren()){
-                    String friend_id = data.getKey();
-
-                    FirebaseDatabase ddataSnapshotatabase2 = FirebaseDatabase.getInstance();
-                    DatabaseReference profile_name = database.getReference("users/"+friend_id+"/Profile");
-
-
-
-                    profile_name.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String friend_name = snapshot.child("name").getValue().toString();
-                            String onlineStatus = snapshot.child("online_status").getValue().toString();
-                            boolean isOnline = false;
-                            if (onlineStatus.equals("online")) {
-                                isOnline = true;
-                            }
-                            arraylist.add(new ChatRVModel(friend_name,"idk", onlineStatus, friend_id, isOnline));
-                            adapter.notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-        DatabaseReference group_messages_ref = database.getReference("groupchat");
-
-        group_messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data:snapshot.getChildren()){
-                    String group_name = data.child("groupname").getValue(String.class);
-                    arraylist.add(new ChatRVModel(group_name,"Decide", "7:01", data.getKey(), false));
-                    adapter.notifyDataSetChanged();
-
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages");
+//
+//        messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot data:snapshot.getChildren()){
+//                    String friend_id = data.getKey();
+//
+//                    FirebaseDatabase ddataSnapshotatabase2 = FirebaseDatabase.getInstance();
+//                    DatabaseReference profile_name = database.getReference("users/"+friend_id+"/Profile");
+//
+//
+//
+//                    profile_name.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            String friend_name = snapshot.child("name").getValue().toString();
+//                            String onlineStatus = snapshot.child("online_status").getValue().toString();
+//                            boolean isOnline = false;
+//                            if (onlineStatus.equals("online")) {
+//                                isOnline = true;
+//                            }
+//                            arraylist.add(new ChatRVModel(friend_name,"idk", onlineStatus, friend_id, isOnline));
+//                            adapter.notifyDataSetChanged();
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+//
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//
+//        DatabaseReference group_messages_ref = database.getReference("groupchat");
+//
+//        group_messages_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot data:snapshot.getChildren()){
+//                    String group_name = data.child("groupname").getValue(String.class);
+//                    arraylist.add(new ChatRVModel(group_name,"Decide", "7:01", data.getKey(), false));
+//                    adapter.notifyDataSetChanged();
+//
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
 

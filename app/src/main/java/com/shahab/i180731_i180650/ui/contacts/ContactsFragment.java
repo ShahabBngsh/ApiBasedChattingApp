@@ -26,13 +26,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+
 import com.shahab.i180731_i180650.ContactRVAdapter;
 import com.shahab.i180731_i180650.ContactRVModel;
 import com.shahab.i180731_i180650.LoginActivity;
@@ -163,56 +157,7 @@ public class ContactsFragment extends Fragment implements SearchView.OnQueryText
             String photo = getContactsCursor.getString(2);
             List<String> contactPhones = phones.get(contactId);
             if (contactPhones != null) {
-                for (String phone :
-                        contactPhones) {
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference contact_ref = database.getReference().child("users");
-
-                    contact_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for(DataSnapshot data:snapshot.getChildren()){
-                                String frienduserid = data.getKey().toString();
-                                DatabaseReference frienduser = contact_ref.child(frienduserid);
-                                DatabaseReference profileref = frienduser.child("Profile");
-                                DatabaseReference contact_no_ref = profileref.child("contact_no");
-
-                                contact_no_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                        String contact_no = snapshot.getValue().toString();
-//
-//                                        if (contact_no.equals(phone)){
-//                                            Toast.makeText(getActivity(), name+" "+phone, Toast.LENGTH_SHORT).show();
-//                                            ls.add(new ContactRVModel(name, phone));
-////                                            Toast.makeText(getActivity(), ls.toString(), Toast.LENGTH_SHORT).show();
-//
-//                                            adapter.notifyDataSetChanged();
-//
-//                                        }
-
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-                                        Log.d("TAG", phone);
-
-                                    }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-
-
-                    ls.add(new ContactRVModel(name, phone));
-                }
+                    ls.add(new ContactRVModel(name, String.valueOf(contactId)));
             }
         }
     }
