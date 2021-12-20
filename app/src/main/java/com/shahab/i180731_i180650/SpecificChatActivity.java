@@ -30,6 +30,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,6 +62,7 @@ public class SpecificChatActivity extends AppCompatActivity {
 
     private static final int pic_id = 1;
 
+    private FirebaseAuth mAuth;
 
     public String friend_id;
     private SpecificChatRVModel to_add;
@@ -102,102 +110,102 @@ public class SpecificChatActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
         String user_id = sharedPref.getString("userid", "none");
 
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        if (friend_id.equals("???")) {
-//            DatabaseReference messages_ref = database.getReference("groupchat/"+friend_id+"/messages");
-//            DatabaseReference my_ref = database.getReference("users/"+user_id+"/Profile/name");
-//
-//            messages_ref.addChildEventListener(new ChildEventListener() {
-//                @Override
-//                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//
-//                    my_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot2) {
-//                            my_name = snapshot2.getValue(String.class);
-//
-//                            String chat_name = snapshot.child("name").getValue().toString();
-//
-//                            if (chat_name.equals(my_name)){
-//                                SpecificChatRVModel message_to_display = new SpecificChatRVModel(snapshot.child("message").getValue().toString(),snapshot.child("time").getValue().toString(), 0);
-//                                ls.add(message_to_display);
-//                            }
-//                            else {
-//                                SpecificChatRVModel message_to_display = new SpecificChatRVModel(snapshot.child("message").getValue().toString(),snapshot.child("time").getValue().toString(), 1);
-//                                ls.add(message_to_display);
-//                            }
-//                            adapter.notifyDataSetChanged();
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//
-//
-//                }
-//
-//                @Override
-//                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//                }
-//
-//                @Override
-//                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//
-//                }
-//
-//                @Override
-//                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//        }
-//        else {
-//
-//
-//            DatabaseReference messages_ref = database.getReference("users/" + user_id + "/messages/" + friend_id);
-//
-//            messages_ref.addChildEventListener(new ChildEventListener() {
-//                @Override
-//                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                    SpecificChatRVModel message_to_display = snapshot.getValue(SpecificChatRVModel.class);
-//                    ls.add(message_to_display);
-//                    adapter.notifyDataSetChanged();
-//
-//                }
-//
-//                @Override
-//                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//                }
-//
-//                @Override
-//                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//
-//                }
-//
-//                @Override
-//                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//
-//
-//        }
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        if (friend_id.equals("???")) {
+            DatabaseReference messages_ref = database.getReference("groupchat/"+friend_id+"/messages");
+            DatabaseReference my_ref = database.getReference("users/"+user_id+"/Profile/name");
+
+            messages_ref.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+
+                    my_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                            my_name = snapshot2.getValue(String.class);
+
+                            String chat_name = snapshot.child("name").getValue().toString();
+
+                            if (chat_name.equals(my_name)){
+                                SpecificChatRVModel message_to_display = new SpecificChatRVModel(snapshot.child("message").getValue().toString(),snapshot.child("time").getValue().toString(), 0);
+                                ls.add(message_to_display);
+                            }
+                            else {
+                                SpecificChatRVModel message_to_display = new SpecificChatRVModel(snapshot.child("message").getValue().toString(),snapshot.child("time").getValue().toString(), 1);
+                                ls.add(message_to_display);
+                            }
+                            adapter.notifyDataSetChanged();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        else {
+
+
+            DatabaseReference messages_ref = database.getReference("users/" + user_id + "/messages/" + friend_id);
+
+            messages_ref.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    SpecificChatRVModel message_to_display = snapshot.getValue(SpecificChatRVModel.class);
+                    ls.add(message_to_display);
+                    adapter.notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+        }
 
     }
 
@@ -218,29 +226,29 @@ public class SpecificChatActivity extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
         String time_now = dateFormat.format(time_now_in_obj);
 
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//
-//        if (friend_id.equals("???")){
-//            DatabaseReference messages_ref = database.getReference("groupchat/"+friend_id+"/messages");
-//            messages_ref.push().setValue(new GroupChat(my_name, my_name+": "+message, time_now));
-//
-//            Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        else {
-//
-//
-//
-//            DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
-//            messages_ref.push().setValue(new SpecificChatRVModel(message,time_now, 0));
-//
-//            DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
-//            myRef.push().setValue(new SpecificChatRVModel(message,time_now, 1));
-//
-//
-//            Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
-//
-//        }
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        if (friend_id.equals("???")){
+            DatabaseReference messages_ref = database.getReference("groupchat/"+friend_id+"/messages");
+            messages_ref.push().setValue(new GroupChat(my_name, my_name+": "+message, time_now));
+
+            Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
+        }
+
+        else {
+
+
+
+            DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
+            messages_ref.push().setValue(new SpecificChatRVModel(message,time_now, 0));
+
+            DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
+            myRef.push().setValue(new SpecificChatRVModel(message,time_now, 1));
+
+
+            Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
+
+        }
 
 
     }
