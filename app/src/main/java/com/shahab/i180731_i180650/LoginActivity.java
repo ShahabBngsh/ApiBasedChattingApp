@@ -69,6 +69,15 @@ public class LoginActivity extends AppCompatActivity {
 //                .build();
 
 
+        SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("server_ip", "http://192.168.100.108");
+        editor.apply();
+
+        Toast.makeText(LoginActivity.this, sharedPref.getString("server_ip", ""), Toast.LENGTH_SHORT).show();
+
+
+
         txtView_signup = findViewById(R.id.login_register);
         txtView_signup.setOnClickListener(view -> launchSignupActivity());
 
