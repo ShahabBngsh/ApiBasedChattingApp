@@ -106,8 +106,8 @@ public class SpecificChatActivity extends AppCompatActivity {
     }
 
     private void updateMessages(String friend_id) {
-        SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
-        String user_id = sharedPref.getString("userid", "none");
+        SharedPreferences sharedPref = getSharedPreferences("app_values", Context.MODE_PRIVATE);
+        String user_id = sharedPref.getString("curr_user_id", "none");
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = sharedPref.getString("server_ip", "none");
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,

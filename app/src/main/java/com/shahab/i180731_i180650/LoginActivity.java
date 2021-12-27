@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("server_ip", "http://192.168.100.108");
+        editor.putString("server_ip", "http://172.17.60.179");
         editor.apply();
 
         Toast.makeText(LoginActivity.this, sharedPref.getString("server_ip", ""), Toast.LENGTH_SHORT).show();
@@ -170,7 +170,8 @@ public class LoginActivity extends AppCompatActivity {
         final TextView textView = (TextView) findViewById(R.id.login_email);
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://172.17.60.179/smd21/getLogin.php";
+        SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
+        String url = sharedPref.getString("server_ip", "none") +"/smd21/getLogin.php";
 
 // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -187,6 +188,10 @@ public class LoginActivity extends AppCompatActivity {
                             st.hasMoreTokens();
                             userid = st.nextToken();
                             if (email.equals(login_email_check) && pass.equals(login_password_check)) {
+                                SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("curr_user_id", userid);
+                                editor.apply();
                                 matches = true;
                                 Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
                                 startActivity(intent);
