@@ -161,20 +161,22 @@ public class LoginActivity extends AppCompatActivity {
         final TextView textView = (TextView) findViewById(R.id.login_email);
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.100.108/smd21/getLogin.php";
+        String url ="http://172.17.60.179/smd21/getLogin.php";
 
 // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        String email, pass;
+                        String email, pass, userid;
                         Boolean matches = false;
                         StringTokenizer st = new StringTokenizer(response,",");
                         while (st.hasMoreTokens()) {
                             email = st.nextToken();
                             st.hasMoreTokens();
                             pass = st.nextToken();
+                            st.hasMoreTokens();
+                            userid = st.nextToken();
                             if (email.equals(login_email_check) && pass.equals(login_password_check)) {
                                 matches = true;
                                 Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
