@@ -129,9 +129,6 @@ public class SpecificChatActivity extends AppCompatActivity {
                                 //display message
                                 SpecificChatRVModel message_to_display = new SpecificChatRVModel(message, time, 0);
                                 ls.add(message_to_display);
-//                                matches = true;
-//                                Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
-//                                startActivity(intent);
                             }
                             else if (user_id.equals(reciever) && friend_id.equals(sender)){
                                 //display message
@@ -140,9 +137,6 @@ public class SpecificChatActivity extends AppCompatActivity {
                             }
                         }
                         adapter.notifyDataSetChanged();
-//                        if (matches == false) {
-//                            Toast.makeText(LoginActivity.this, "WRONG CREDENTIALS", Toast.LENGTH_SHORT).show();
-//                        }
 
                     }
                 }, new Response.ErrorListener() {
@@ -156,66 +150,6 @@ public class SpecificChatActivity extends AppCompatActivity {
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        if (friend_id.equals("???")) {
-//
-//                            my_name = snapshot2.getValue(String.class);
-//
-//                            String chat_name = snapshot.child("name").getValue().toString();
-//
-//                            if (chat_name.equals(my_name)){
-//                                SpecificChatRVModel message_to_display = new SpecificChatRVModel(snapshot.child("message").getValue().toString(),snapshot.child("time").getValue().toString(), 0);
-//                                ls.add(message_to_display);
-//                            }
-//                            else {
-//                                SpecificChatRVModel message_to_display = new SpecificChatRVModel(snapshot.child("message").getValue().toString(),snapshot.child("time").getValue().toString(), 1);
-//                                ls.add(message_to_display);
-//                            }
-//                            adapter.notifyDataSetChanged();
-//
-//                        }
-//
-//
-//                }
-//        }
-//        else {
-//
-//
-//            DatabaseReference messages_ref = database.getReference("users/" + user_id + "/messages/" + friend_id);
-//
-//            messages_ref.addChildEventListener(new ChildEventListener() {
-//                @Override
-//                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                    SpecificChatRVModel message_to_display = snapshot.getValue(SpecificChatRVModel.class);
-//                    ls.add(message_to_display);
-//                    adapter.notifyDataSetChanged();
-//
-//                }
-//
-//                @Override
-//                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//                }
-//
-//                @Override
-//                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//
-//                }
-//
-//                @Override
-//                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//
-//
-//        }
-
     }
 
     private void goBack2Chats() {
@@ -228,37 +162,33 @@ public class SpecificChatActivity extends AppCompatActivity {
         String message = edittxt_message.getText().toString();
 
         SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
-        String user_id = sharedPref.getString("userid", "none");
+        String logged_user_id = sharedPref.getString("curr_user_id", "none");
 
 
         Date time_now_in_obj = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
         String time_now = dateFormat.format(time_now_in_obj);
 
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//
-//        if (friend_id.equals("???")){
-//            DatabaseReference messages_ref = database.getReference("groupchat/"+friend_id+"/messages");
-//            messages_ref.push().setValue(new GroupChat(my_name, my_name+": "+message, time_now));
-//
-//            Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        else {
-//
-//
-//
-//            DatabaseReference messages_ref = database.getReference("users/"+user_id+"/messages/"+friend_id);
-//            messages_ref.push().setValue(new SpecificChatRVModel(message,time_now, 0));
-//
-//            DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
-//            myRef.push().setValue(new SpecificChatRVModel(message,time_now, 1));
-//
-//
-//            Toast.makeText(this, "message sent", Toast.LENGTH_SHORT).show();
-//
-//        }
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = sharedPref.getString("server_ip", "none") + "storeSentChat.php?sender=" + logged_user_id + "&reciever=" + friend_id + "&message=" + message;
+        Toast.makeText(SpecificChatActivity.this, url, Toast.LENGTH_LONG).show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(SpecificChatActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("ERROR", error.toString());
+            }
+        });
+        edittxt_message.setText("");
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
 
     }
 
