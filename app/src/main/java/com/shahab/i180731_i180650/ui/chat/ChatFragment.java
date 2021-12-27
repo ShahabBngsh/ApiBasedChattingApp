@@ -85,6 +85,7 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
         RequestQueue queue = Volley.newRequestQueue(getContext());
         SharedPreferences sharedPref = getActivity().getSharedPreferences("app_values", Context.MODE_PRIVATE);
         String url = sharedPref.getString("server_ip", "none") +"getContacts.php";
+        String logged_user_id = sharedPref.getString("curr_user_id", "none");
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -103,8 +104,9 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
                             lastseen = st.nextToken();
                             st.hasMoreTokens();
                             isOnline = st.nextToken();
-                            arraylist.add(new ChatRVModel(name, bio, lastseen));
-
+                            if (!logged_user_id.equals(userid)) {
+                                arraylist.add(new ChatRVModel(name, bio, lastseen, userid, Boolean.getBoolean(isOnline)));
+                            }
                         }
                         adapter.notifyDataSetChanged();
 

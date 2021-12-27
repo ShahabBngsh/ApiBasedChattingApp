@@ -125,7 +125,7 @@ public class SpecificChatActivity extends AppCompatActivity {
                             message = st.nextToken();
                             st.hasMoreTokens();
                             time = st.nextToken();
-                            if (user_id.equals(reciever)) {
+                            if (user_id.equals(sender) && friend_id.equals(reciever)) {
                                 //display message
                                 SpecificChatRVModel message_to_display = new SpecificChatRVModel(message, time, 0);
                                 ls.add(message_to_display);
@@ -133,7 +133,7 @@ public class SpecificChatActivity extends AppCompatActivity {
 //                                Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
 //                                startActivity(intent);
                             }
-                            else if (user_id.equals(sender)){
+                            else if (user_id.equals(reciever) && friend_id.equals(sender)){
                                 //display message
                                 SpecificChatRVModel message_to_display = new SpecificChatRVModel(message, time, 1);
                                 ls.add(message_to_display);
