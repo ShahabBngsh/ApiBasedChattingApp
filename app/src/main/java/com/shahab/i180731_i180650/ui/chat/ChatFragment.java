@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +20,23 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.shahab.i180731_i180650.ChatRVAdapter;
 import com.shahab.i180731_i180650.ChatRVModel;
+import com.shahab.i180731_i180650.LoginActivity;
+import com.shahab.i180731_i180650.NavigationActivity;
 import com.shahab.i180731_i180650.NewChatActivity;
 import com.shahab.i180731_i180650.R;
 import com.shahab.i180731_i180650.databinding.FragmentChatBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -68,9 +78,47 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
 
         rv=root.findViewById(R.id.chatRV);
 
-        arraylist.add(new ChatRVModel("john snow", "she is ma queen", "01:35"));
-        arraylist.add(new ChatRVModel("mad queen","drakarys ...", "06:40"));
-        arraylist.add(new ChatRVModel("dumb and dumber","dany forgot ...", "06:09"));
+//        arraylist.add(new ChatRVModel("john snow", "she is ma queen", "01:35"));
+//        arraylist.add(new ChatRVModel("mad queen","drakarys ...", "06:40"));
+//        arraylist.add(new ChatRVModel("dumb and dumber","dany forgot ...", "06:09"));
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("app_values", Context.MODE_PRIVATE);
+        String url = sharedPref.getString("server_ip", "none") +"getContacts.php";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        String userid, name, contactno, bio, lastseen, isOnline;
+                        StringTokenizer st = new StringTokenizer(response,",");
+                        while (st.hasMoreTokens()) {
+                            userid = st.nextToken();
+                            st.hasMoreTokens();
+                            name = st.nextToken();
+                            st.hasMoreTokens();
+                            bio = st.nextToken();
+                            st.hasMoreTokens();
+                            lastseen = st.nextToken();
+                            st.hasMoreTokens();
+                            isOnline = st.nextToken();
+                            arraylist.add(new ChatRVModel(name, bio, lastseen));
+
+                        }
+                        adapter.notifyDataSetChanged();
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("ERROR", error.toString());
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
 
         adapter=new ChatRVAdapter(getActivity(),arraylist);
         RecyclerView.LayoutManager lm=new LinearLayoutManager(getActivity());

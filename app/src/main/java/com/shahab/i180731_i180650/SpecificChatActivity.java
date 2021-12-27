@@ -109,12 +109,12 @@ public class SpecificChatActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("app_values", Context.MODE_PRIVATE);
         String user_id = sharedPref.getString("curr_user_id", "none");
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = sharedPref.getString("server_ip", "none");
+        String url = sharedPref.getString("server_ip", "none") + "getChats.php";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        String message, time, sender, reciever, currUser="2";
+                        String message, time, sender, reciever;
                         Boolean matches = false;
                         StringTokenizer st = new StringTokenizer(response,",");
                         while (st.hasMoreTokens()) {
@@ -125,13 +125,21 @@ public class SpecificChatActivity extends AppCompatActivity {
                             message = st.nextToken();
                             st.hasMoreTokens();
                             time = st.nextToken();
-                            if (currUser.equals(sender)) {
+                            if (user_id.equals(reciever)) {
                                 //display message
+                                SpecificChatRVModel message_to_display = new SpecificChatRVModel(message, time, 0);
+                                ls.add(message_to_display);
 //                                matches = true;
 //                                Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
 //                                startActivity(intent);
                             }
+                            else if (user_id.equals(sender)){
+                                //display message
+                                SpecificChatRVModel message_to_display = new SpecificChatRVModel(message, time, 1);
+                                ls.add(message_to_display);
+                            }
                         }
+                        adapter.notifyDataSetChanged();
 //                        if (matches == false) {
 //                            Toast.makeText(LoginActivity.this, "WRONG CREDENTIALS", Toast.LENGTH_SHORT).show();
 //                        }
