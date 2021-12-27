@@ -186,7 +186,7 @@ public class SpecificChatActivity extends AppCompatActivity {
             }
         });
         edittxt_message.setText("");
-
+        updateMessages(friend_id);
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
