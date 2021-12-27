@@ -178,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        String email, pass, userid;
+                        String email, pass, userid, online_status;
                         Boolean matches = false;
                         StringTokenizer st = new StringTokenizer(response,",");
                         while (st.hasMoreTokens()) {
@@ -187,10 +187,13 @@ public class LoginActivity extends AppCompatActivity {
                             pass = st.nextToken();
                             st.hasMoreTokens();
                             userid = st.nextToken();
+                            st.hasMoreTokens();
+                            online_status = st.nextToken();
                             if (email.equals(login_email_check) && pass.equals(login_password_check)) {
                                 SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putString("curr_user_id", userid);
+                                editor.putString("online_status", online_status);
                                 editor.apply();
                                 matches = true;
                                 Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);

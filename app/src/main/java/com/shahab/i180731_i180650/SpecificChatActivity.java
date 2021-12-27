@@ -166,7 +166,7 @@ public class SpecificChatActivity extends AppCompatActivity {
 
 
         Date time_now_in_obj = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String time_now = dateFormat.format(time_now_in_obj);
 
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -186,8 +186,10 @@ public class SpecificChatActivity extends AppCompatActivity {
             }
         });
         edittxt_message.setText("");
-        updateMessages(friend_id);
-// Add the request to the RequestQueue.
+        SpecificChatRVModel message_to_display = new SpecificChatRVModel(message, time_now, 0);
+        ls.add(message_to_display);
+        adapter.notifyDataSetChanged();
+        // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
     }
@@ -204,22 +206,6 @@ public class SpecificChatActivity extends AppCompatActivity {
 
 
         if (requestCode == pic_id && resultCode == Activity.RESULT_OK) {
-//            SharedPreferences sharedPref = getSharedPreferences("app_values",Context.MODE_PRIVATE);
-//            String user_id = sharedPref.getString("userid", "none");
-//
-//            if (friend_id.equals("???")) {}
-//            else {
-//
-
-//                FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference messages_ref = database.getReference("users/" + user_id + "/messages/" + friend_id);
-//                messages_ref.push().setValue(new SpecificChatRVModel(message, time_now, 0));
-//
-//                DatabaseReference myRef = database.getReference("users/" + friend_id + "/messages/" + user_id);
-//                myRef.push().setValue(new SpecificChatRVModel(message, time_now, 1));
-
-//            ls.add()
-
 
 
 //            }

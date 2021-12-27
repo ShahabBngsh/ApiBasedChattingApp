@@ -105,7 +105,7 @@ public class ChatFragment extends Fragment implements SearchView.OnQueryTextList
                             st.hasMoreTokens();
                             isOnline = st.nextToken();
                             if (!logged_user_id.equals(userid)) {
-                                arraylist.add(new ChatRVModel(name, bio, lastseen, userid, Boolean.getBoolean(isOnline)));
+                                arraylist.add(new ChatRVModel(name, bio, lastseen, userid, isOnline.equals("1")?true:false));
                             }
                         }
                         adapter.notifyDataSetChanged();
